@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--Añadido Boorstrap CSS-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <title>Encripta Mania</title>
     </head>
     <body>
@@ -41,7 +42,7 @@
               <h5 class="card-header">Mensaje Cifrado</h5>
               <div class="card-body">
                 <p class="card-text" id="msjEncriptado">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Copiar</a>
+                <button class="btn btn-primary" id="copiarBtnEnc">Copiar</button>
               </div>
             </div>
             <button type="submit" class="btn btn-primary my-1" id="limpiarEnc">Limpiar</button>
@@ -52,7 +53,7 @@
               <h5 class="card-header">Mensaje Descifrado</h5>
               <div class="card-body">
                 <p class="card-text" id="msjDesencriptado">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Copiar</a>
+                <button class="btn btn-primary" id="copiarBtnDes">Copiar</button>
               </div>
             </div>
             <button type="submit" class="btn btn-primary my-1" id="limpiarDes">Limpiar</button>

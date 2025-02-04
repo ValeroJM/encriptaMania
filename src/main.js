@@ -1,5 +1,5 @@
 function encriptarFtn(){
-    var textAreaStr = document.getElementById("mensajeTextarea").value;
+    let textAreaStr = document.getElementById("mensajeTextarea").value;
     guardarMensajeTextarea();
     localStorage.setItem("msjEncriptado", textAreaStr);
     mostrarEncriptarCard();
@@ -7,7 +7,7 @@ function encriptarFtn(){
 }
 
 function desencriptarFtn(){
-    var textAreaStr = document.getElementById("mensajeTextarea").value;
+    let textAreaStr = document.getElementById("mensajeTextarea").value;
     guardarMensajeTextarea();
     localStorage.setItem("msjDesencriptado", textAreaStr);
     mostrarDesencriptarCard();
@@ -15,23 +15,23 @@ function desencriptarFtn(){
 }
 
 function guardarMensajeTextarea() {
-    var textAreaStr = document.getElementById("mensajeTextarea").value;
+    let textAreaStr = document.getElementById("mensajeTextarea").value;
     localStorage.setItem("mensajeTextarea", textAreaStr);
 }
 
 function msjEncriptado(msjEncriptadoStr){
-    var textEncriptarCard = document.getElementById("msjEncriptado");
+    let textEncriptarCard = document.getElementById("msjEncriptado");
     textEncriptarCard.innerHTML = msjEncriptadoStr;
 }
 
 function msjDesencriptado(msjDesencriptadoStr){
-    var textDesencriptarCard = document.getElementById("msjDesencriptado");
+    let textDesencriptarCard = document.getElementById("msjDesencriptado");
     textDesencriptarCard.innerHTML = msjDesencriptadoStr;
 }
 
 function mostrarEncriptarCard() {
-    var encriptarCard = document.getElementById("encriptarCard");
-    var desencriptarCard = document.getElementById("desencriptarCard");
+    let encriptarCard = document.getElementById("encriptarCard");
+    let desencriptarCard = document.getElementById("desencriptarCard");
     desencriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     encriptarCard.style.display = "block";
     localStorage.setItem("encriptarCardVisible", "true");
@@ -39,8 +39,8 @@ function mostrarEncriptarCard() {
 }
 
 function mostrarDesencriptarCard() {
-    var desencriptarCard = document.getElementById("desencriptarCard");
-    var encriptarCard = document.getElementById("encriptarCard");
+    let desencriptarCard = document.getElementById("desencriptarCard");
+    let encriptarCard = document.getElementById("encriptarCard");
     encriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     desencriptarCard.style.display = "block";
     localStorage.setItem("desencriptarCardVisible", "true");
@@ -48,10 +48,10 @@ function mostrarDesencriptarCard() {
 }
 
 function comprobarEncriptarCard() {
-    var encriptarCard = document.getElementById("encriptarCard");
+    let encriptarCard = document.getElementById("encriptarCard");
     if (localStorage.getItem("encriptarCardVisible") === "true") {
         encriptarCard.style.display = "block";
-        var msjEncriptadoStr = localStorage.getItem("msjEncriptado");
+        let msjEncriptadoStr = localStorage.getItem("msjEncriptado");
         if (msjEncriptadoStr) {
             msjEncriptado(msjEncriptadoStr);
         }
@@ -61,10 +61,10 @@ function comprobarEncriptarCard() {
 }
 
 function comprobarDesencriptarCard() {
-    var desencriptarCard = document.getElementById("desencriptarCard");
+    let desencriptarCard = document.getElementById("desencriptarCard");
     if (localStorage.getItem("desencriptarCardVisible") === "true") {
         desencriptarCard.style.display = "block";
-        var msjDesencriptadoStr = localStorage.getItem("msjDesencriptado");
+        let msjDesencriptadoStr = localStorage.getItem("msjDesencriptado");
         if (msjDesencriptadoStr) {
             msjDesencriptado(msjDesencriptadoStr);
         }
@@ -74,8 +74,8 @@ function comprobarDesencriptarCard() {
 }
 
 function limpiarYRecargar() {
-    var encriptarCard = document.getElementById("encriptarCard");
-    var desencriptarCard = document.getElementById("desencriptarCard");
+    let encriptarCard = document.getElementById("encriptarCard");
+    let desencriptarCard = document.getElementById("desencriptarCard");
 
     // Eliminar los ítems de localStorage
     localStorage.removeItem("encriptarCardVisible");
@@ -94,9 +94,65 @@ function limpiarYRecargar() {
     }, 100); // Un retraso corto para asegurar que los cambios se reflejan antes de la recarga
 }
 
+function copiarAClipboardEnc() {
+    const txtEncriptado = localStorage.getItem("msjEncriptado");
+    const copiBtn = document.getElementById("copiarBtnEnc");
+
+    // Crear un elemento de textarea temporal para copiar el contenido
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = txtEncriptado;
+    document.body.appendChild(tempTextarea);
+
+    // Seleccionar el contenido del textarea temporal
+    tempTextarea.select();
+    tempTextarea.setSelectionRange(0, 99999); // Para móviles
+
+    // Copiar el contenido al portapapeles
+    document.execCommand("copy");
+
+    // Eliminar el textarea temporal
+    document.body.removeChild(tempTextarea);
+
+    // Mostrar mensaje de copiado en el botón
+    const originalLabel = copiBtn.innerHTML;
+    copiBtn.innerHTML = "Copiado!";
+    
+    setTimeout(function(){
+        copiBtn.innerHTML = originalLabel;
+    }, 1500); // Revertir etiqueta después de 1,5 segundos
+}
+
+function copiarAClipboardDes() {
+    const txtEncriptado = localStorage.getItem("msjDesencriptado");
+    const copiBtn = document.getElementById("copiarBtnDes");
+
+    // Crear un elemento de textarea temporal para copiar el contenido
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = txtEncriptado;
+    document.body.appendChild(tempTextarea);
+
+    // Seleccionar el contenido del textarea temporal
+    tempTextarea.select();
+    tempTextarea.setSelectionRange(0, 99999); // Para móviles
+
+    // Copiar el contenido al portapapeles
+    document.execCommand("copy");
+
+    // Eliminar el textarea temporal
+    document.body.removeChild(tempTextarea);
+
+    // Mostrar mensaje de copiado en el botón
+    const originalLabel = copiBtn.innerHTML;
+    copiBtn.innerHTML = "Copiado!";
+    
+    setTimeout(function(){
+        copiBtn.innerHTML = originalLabel;
+    }, 1500); // Revertir etiqueta después de 1,5 segundos
+}
+
 window.onload = function() {
-    var encriptarCard = document.getElementById("encriptarCard");
-    var desencriptarCard = document.getElementById("desencriptarCard");
+    let encriptarCard = document.getElementById("encriptarCard");
+    let desencriptarCard = document.getElementById("desencriptarCard");
     
     // Asegurarse de que ambas tarjetas están ocultas al cargar la página
     encriptarCard.style.display = "none";
@@ -105,7 +161,7 @@ window.onload = function() {
     comprobarDesencriptarCard();
 
     // Recuperar el valor del mensajeTextarea y establecerlo en el textarea
-    var savedTextAreaStr = localStorage.getItem("mensajeTextarea");
+    let savedTextAreaStr = localStorage.getItem("mensajeTextarea");
     if (savedTextAreaStr) {
         document.getElementById("mensajeTextarea").value = savedTextAreaStr;
     }
@@ -115,3 +171,5 @@ document.getElementById("encriptarBtn").addEventListener("click", encriptarFtn);
 document.getElementById("desencriptarBtn").addEventListener("click", desencriptarFtn);
 document.getElementById("limpiarEnc").addEventListener("click", limpiarYRecargar);
 document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar);
+document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
+document.getElementById("copiarBtnDes").addEventListener("click", copiarAClipboardDes);
