@@ -32,8 +32,17 @@ function msjDesencriptado(msjDesencriptadoStr){
 function mostrarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     let desencriptarCard = document.getElementById("desencriptarCard");
+    //Botones
+    let copiBtnTextare = document.getElementById("copiarBtnTextarea");
+    let encriptarBtn = document.getElementById("encriptarBtn");
+    let desencriptarBtn = document.getElementById("desencriptarBtn");
+
     desencriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     encriptarCard.style.display = "block";
+    copiBtnTextare.style.display = "block";
+    encriptarBtn.style.display = "none"; //Ocultar boton de encriptado
+    desencriptarBtn.style.display = "none"; //Ocultar boton de desencriptado
+
     localStorage.setItem("encriptarCardVisible", "true");
     localStorage.removeItem("desencriptarCardVisible");
 }
@@ -41,8 +50,17 @@ function mostrarEncriptarCard() {
 function mostrarDesencriptarCard() {
     let desencriptarCard = document.getElementById("desencriptarCard");
     let encriptarCard = document.getElementById("encriptarCard");
+    //Botones
+    let copiBtnTextare = document.getElementById("copiarBtnTextarea");
+    let encriptarBtn = document.getElementById("encriptarBtn");
+    let desencriptarBtn = document.getElementById("desencriptarBtn");
+
     encriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     desencriptarCard.style.display = "block";
+    copiBtnTextare.style.display = "block";
+    encriptarBtn.style.display = "none"; //Ocultar boton de encriptado
+    desencriptarBtn.style.display = "none"; //Ocultar boton de desencriptado
+
     localStorage.setItem("desencriptarCardVisible", "true");
     localStorage.removeItem("encriptarCardVisible");
 }
@@ -98,56 +116,54 @@ function copiarAClipboardEnc() {
     const txtEncriptado = localStorage.getItem("msjEncriptado");
     const copiBtn = document.getElementById("copiarBtnEnc");
 
-    // Crear un elemento de textarea temporal para copiar el contenido
-    const tempTextarea = document.createElement("textarea");
-    tempTextarea.value = txtEncriptado;
-    document.body.appendChild(tempTextarea);
-
-    // Seleccionar el contenido del textarea temporal
-    tempTextarea.select();
-    tempTextarea.setSelectionRange(0, 99999); // Para móviles
-
-    // Copiar el contenido al portapapeles
-    document.execCommand("copy");
-
-    // Eliminar el textarea temporal
-    document.body.removeChild(tempTextarea);
-
-    // Mostrar mensaje de copiado en el botón
-    const originalLabel = copiBtn.innerHTML;
-    copiBtn.innerHTML = "Copiado!";
-    
-    setTimeout(function(){
-        copiBtn.innerHTML = originalLabel;
-    }, 1500); // Revertir etiqueta después de 1,5 segundos
+    // Usar la API moderna de portapapeles
+    navigator.clipboard.writeText(txtEncriptado).then(function() {
+        // Mostrar mensaje de copiado en el botón
+        const originalLabel = copiBtn.innerHTML;
+        copiBtn.innerHTML = "¡Copiado!";
+        
+        setTimeout(function(){
+            copiBtn.innerHTML = originalLabel;
+        }, 1500); // Revertir etiqueta después de 1,5 segundos
+    }).catch(function(err) {
+        console.error('Error al copiar al portapapeles: ', err);
+    });
 }
 
 function copiarAClipboardDes() {
     const txtEncriptado = localStorage.getItem("msjDesencriptado");
     const copiBtn = document.getElementById("copiarBtnDes");
 
-    // Crear un elemento de textarea temporal para copiar el contenido
-    const tempTextarea = document.createElement("textarea");
-    tempTextarea.value = txtEncriptado;
-    document.body.appendChild(tempTextarea);
+    // Usar la API moderna de portapapeles
+    navigator.clipboard.writeText(txtEncriptado).then(function() {
+        // Mostrar mensaje de copiado en el botón
+        const originalLabel = copiBtn.innerHTML;
+        copiBtn.innerHTML = "¡Copiado!";
+        
+        setTimeout(function(){
+            copiBtn.innerHTML = originalLabel;
+        }, 1500); // Revertir etiqueta después de 1,5 segundos
+    }).catch(function(err) {
+        console.error('Error al copiar al portapapeles: ', err);
+    });
+}
 
-    // Seleccionar el contenido del textarea temporal
-    tempTextarea.select();
-    tempTextarea.setSelectionRange(0, 99999); // Para móviles
+function copiarAClipboardTextarea() {
+    const txtTextarea = document.getElementById("mensajeTextarea").value;
+    const copiBtn = document.getElementById("copiarBtnTextarea");
 
-    // Copiar el contenido al portapapeles
-    document.execCommand("copy");
-
-    // Eliminar el textarea temporal
-    document.body.removeChild(tempTextarea);
-
-    // Mostrar mensaje de copiado en el botón
-    const originalLabel = copiBtn.innerHTML;
-    copiBtn.innerHTML = "Copiado!";
-    
-    setTimeout(function(){
-        copiBtn.innerHTML = originalLabel;
-    }, 1500); // Revertir etiqueta después de 1,5 segundos
+    // Usar la API moderna de portapapeles
+    navigator.clipboard.writeText(txtTextarea).then(function() {
+        // Mostrar mensaje de copiado en el botón
+        const originalLabel = copiBtn.innerHTML;
+        copiBtn.innerHTML = "¡Copiado!";
+        
+        setTimeout(function(){
+            copiBtn.innerHTML = originalLabel;
+        }, 1500); // Revertir etiqueta después de 1,5 segundos
+    }).catch(function(err) {
+        console.error('Error al copiar al portapapeles: ', err);
+    });
 }
 
 window.onload = function() {
@@ -173,3 +189,4 @@ document.getElementById("limpiarEnc").addEventListener("click", limpiarYRecargar
 document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar);
 document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
 document.getElementById("copiarBtnDes").addEventListener("click", copiarAClipboardDes);
+document.getElementById("copiarBtnTextarea").addEventListener("click", copiarAClipboardTextarea);
