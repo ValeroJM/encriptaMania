@@ -32,16 +32,10 @@ function msjDesencriptado(msjDesencriptadoStr){
 function mostrarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     let desencriptarCard = document.getElementById("desencriptarCard");
-    //Botones
-    let copiBtnTextare = document.getElementById("copiarBtnTextarea");
-    let encriptarBtn = document.getElementById("encriptarBtn");
-    let desencriptarBtn = document.getElementById("desencriptarBtn");
-
+    
     desencriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     encriptarCard.style.display = "block";
-    copiBtnTextare.style.display = "block";
-    encriptarBtn.style.display = "none"; //Ocultar boton de encriptado
-    desencriptarBtn.style.display = "none"; //Ocultar boton de desencriptado
+    mostrarCopiBtnTextarea();
 
     localStorage.setItem("encriptarCardVisible", "true");
     localStorage.removeItem("desencriptarCardVisible");
@@ -50,25 +44,30 @@ function mostrarEncriptarCard() {
 function mostrarDesencriptarCard() {
     let desencriptarCard = document.getElementById("desencriptarCard");
     let encriptarCard = document.getElementById("encriptarCard");
-    //Botones
-    let copiBtnTextare = document.getElementById("copiarBtnTextarea");
-    let encriptarBtn = document.getElementById("encriptarBtn");
-    let desencriptarBtn = document.getElementById("desencriptarBtn");
 
     encriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     desencriptarCard.style.display = "block";
-    copiBtnTextare.style.display = "block";
-    encriptarBtn.style.display = "none"; //Ocultar boton de encriptado
-    desencriptarBtn.style.display = "none"; //Ocultar boton de desencriptado
+    mostrarCopiBtnTextarea();
 
     localStorage.setItem("desencriptarCardVisible", "true");
     localStorage.removeItem("encriptarCardVisible");
+}
+
+function mostrarCopiBtnTextarea(){
+    let copiBtnTextare = document.getElementById("copiarBtnTextarea");
+    let encriptarBtn = document.getElementById("encriptarBtn");
+    let desencriptarBtn = document.getElementById("desencriptarBtn");
+    
+    copiBtnTextare.style.display = "block";
+    encriptarBtn.style.display = "none"; //Ocultar boton de encriptado
+    desencriptarBtn.style.display = "none"; //Ocultar boton de desencriptado
 }
 
 function comprobarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     if (localStorage.getItem("encriptarCardVisible") === "true") {
         encriptarCard.style.display = "block";
+        mostrarCopiBtnTextarea();
         let msjEncriptadoStr = localStorage.getItem("msjEncriptado");
         if (msjEncriptadoStr) {
             msjEncriptado(msjEncriptadoStr);
@@ -82,6 +81,7 @@ function comprobarDesencriptarCard() {
     let desencriptarCard = document.getElementById("desencriptarCard");
     if (localStorage.getItem("desencriptarCardVisible") === "true") {
         desencriptarCard.style.display = "block";
+        mostrarCopiBtnTextarea();
         let msjDesencriptadoStr = localStorage.getItem("msjDesencriptado");
         if (msjDesencriptadoStr) {
             msjDesencriptado(msjDesencriptadoStr);
