@@ -166,6 +166,24 @@ function copiarAClipboardTextarea() {
     });
 }
 
+
+//Validador del formulario --- Empieza aquí: ---
+document.addEventListener('DOMContentLoaded', function() {
+    let forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+        }, false);
+    });
+});
+//--- fin Validador del formulario ---
+
 window.onload = function() {
     let encriptarCard = document.getElementById("encriptarCard");
     let desencriptarCard = document.getElementById("desencriptarCard");
