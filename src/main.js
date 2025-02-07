@@ -1,17 +1,21 @@
 function encriptarFtn(){
-    let textAreaStr = document.getElementById("mensajeTextarea").value;
-    guardarMensajeTextarea();
-    localStorage.setItem("msjEncriptado", textAreaStr);
-    mostrarEncriptarCard();
-    msjEncriptado(textAreaStr);
+    if(validateForm()){
+        let textAreaStr = document.getElementById("mensajeTextarea").value;
+        guardarMensajeTextarea();
+        localStorage.setItem("msjEncriptado", textAreaStr);
+        mostrarEncriptarCard();
+        msjEncriptado(textAreaStr);
+    }
 }
 
 function desencriptarFtn(){
-    let textAreaStr = document.getElementById("mensajeTextarea").value;
-    guardarMensajeTextarea();
-    localStorage.setItem("msjDesencriptado", textAreaStr);
-    mostrarDesencriptarCard();
-    msjDesencriptado(textAreaStr);
+    if(validateForm()){
+        let textAreaStr = document.getElementById("mensajeTextarea").value;
+        guardarMensajeTextarea();
+        localStorage.setItem("msjDesencriptado", textAreaStr);
+        mostrarDesencriptarCard();
+        msjDesencriptado(textAreaStr);
+    }
 }
 
 function guardarMensajeTextarea() {
@@ -166,6 +170,14 @@ function copiarAClipboardTextarea() {
     });
 }
 
+function validateForm() {
+    let form = document.querySelector('.needs-validation');
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return false;
+    }
+    return true;
+}
 
 //Validador del formulario --- Empieza aquí: ---
 document.addEventListener('DOMContentLoaded', function() {
