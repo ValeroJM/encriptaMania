@@ -1,26 +1,59 @@
-function encriptarFtn(){
+function encriptarAccBtn(){
     if(validateForm()){
         let textAreaStr = document.getElementById("mensajeTextarea").value;
         guardarMensajeTextarea();
-        localStorage.setItem("msjEncriptado", textAreaStr);
+        guardarSeleccionCifrado();
+
+        //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
+        let resultadoEncriptado = encriptarODesencriptar('encriptar');
+        localStorage.setItem("msjEncriptado", resultadoEncriptado);
+        
+        //Muestra la tarjeta de Encriptado
         mostrarEncriptarCard();
-        msjEncriptado(textAreaStr);
+
+        //Muestra el resultado en la tarjeta Encriptar
+        msjEncriptado(resultadoEncriptado);
     }
 }
 
-function desencriptarFtn(){
+function desencriptarAccBtn(){
     if(validateForm()){
         let textAreaStr = document.getElementById("mensajeTextarea").value;
         guardarMensajeTextarea();
-        localStorage.setItem("msjDesencriptado", textAreaStr);
+        guardarSeleccionCifrado();
+
+        //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
+        let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
+        localStorage.setItem("msjDesencriptado", resultadoDesencriptado);
+        
+        //Muestra la tarjeta de Desencriptado
         mostrarDesencriptarCard();
-        msjDesencriptado(textAreaStr);
+
+        //Muestra la tarjeta de Encriptado
+        msjDesencriptado(resultadoDesencriptado);
     }
+}
+
+function encriptarODesencriptar(accion){
+    let tipoCifrado = localStorage.getItem("seleccionCifrado");
+    let mensajeOriginal = localStorage.getItem("mensajeTextarea");
+    let resultado;
+    
+    if (tipoCifrado === '1'){
+        resultado = accion === 'encriptar' ? mensajeOriginal.split('').reverse().join('') : mensajeOriginal.split('').reverse().join('');
+    }
+
+    return resultado;
 }
 
 function guardarMensajeTextarea() {
     let textAreaStr = document.getElementById("mensajeTextarea").value;
     localStorage.setItem("mensajeTextarea", textAreaStr);
+}
+
+function guardarSeleccionCifrado(){
+    let cifradoSelect = document.getElementById("cifrado").value;
+    localStorage.setItem("seleccionCifrado", cifradoSelect);
 }
 
 function msjEncriptado(msjEncriptadoStr){
@@ -105,7 +138,8 @@ function limpiarYRecargar() {
     localStorage.removeItem("msjEncriptado");
     localStorage.removeItem("msjDesencriptado");
     localStorage.removeItem("mensajeTextarea");
-
+    localStorage.removeItem("seleccionCifrado");
+    
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
     desencriptarCard.style.display = "none";
@@ -211,10 +245,16 @@ window.onload = function() {
     if (savedTextAreaStr) {
         document.getElementById("mensajeTextarea").value = savedTextAreaStr;
     }
+
+    // Recuperar el valor del seleccionCifrado y establecerlo en el dropdown select
+    let savedSelectCifrado = localStorage.getItem("seleccionCifrado");
+    if (savedSelectCifrado){
+        document.getElementById("cifrado").value = savedSelectCifrado;
+    }
 };
 
-document.getElementById("encriptarBtn").addEventListener("click", encriptarFtn);
-document.getElementById("desencriptarBtn").addEventListener("click", desencriptarFtn);
+document.getElementById("encriptarBtn").addEventListener("click", encriptarAccBtn);
+document.getElementById("desencriptarBtn").addEventListener("click", desencriptarAccBtn);
 document.getElementById("limpiarEnc").addEventListener("click", limpiarYRecargar);
 document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar);
 document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
