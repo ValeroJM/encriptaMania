@@ -1,3 +1,5 @@
+import {ci_reverso, dci_reverso} from './c_reverso.js';
+
 function encriptarAccBtn(){
     if(validateForm()){
         let textAreaStr = document.getElementById("mensajeTextarea").value;
@@ -40,7 +42,7 @@ function encriptarODesencriptar(accion){
     let resultado;
     
     if (tipoCifrado === '1'){
-        resultado = accion === 'encriptar' ? mensajeOriginal.split('').reverse().join('') : mensajeOriginal.split('').reverse().join('');
+        resultado = accion === 'encriptar' ? ci_reverso(mensajeOriginal) : dci_reverso(mensajeOriginal);
     }
 
     return resultado;
