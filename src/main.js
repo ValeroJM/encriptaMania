@@ -1,3 +1,4 @@
+import {ci_a1e2i3o4u5, dci_a1e2i3o4u5} from './c_a1e2i3o4u5.js';
 import {ci_reverso, dci_reverso} from './c_reverso.js';
 
 function encriptarAccBtn(){
@@ -42,6 +43,8 @@ function encriptarODesencriptar(accion){
     let resultado;
     
     if (tipoCifrado === '1'){
+        resultado = accion === 'encriptar' ? ci_a1e2i3o4u5(mensajeOriginal) : dci_a1e2i3o4u5(mensajeOriginal);
+    }else if(tipoCifrado === '2'){
         resultado = accion === 'encriptar' ? ci_reverso(mensajeOriginal) : dci_reverso(mensajeOriginal);
     }
 
