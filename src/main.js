@@ -1,5 +1,6 @@
 import {ci_a1e2i3o4u5, dci_a1e2i3o4u5} from './c_a1e2i3o4u5.js';
 import {ci_reverso, dci_reverso} from './c_reverso.js';
+import {ci_zigzag, dci_zigzag} from './c_zigzag.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -46,6 +47,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_a1e2i3o4u5(mensajeOriginal) : dci_a1e2i3o4u5(mensajeOriginal);
     }else if(tipoCifrado === '2'){
         resultado = accion === 'encriptar' ? ci_reverso(mensajeOriginal) : dci_reverso(mensajeOriginal);
+    }else if(tipoCifrado === '3'){
+        resultado = accion === 'encriptar' ? ci_zigzag(mensajeOriginal) : dci_zigzag(mensajeOriginal);
     }
 
     return resultado;
