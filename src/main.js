@@ -280,8 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Verificar si cualquier campo tiene la clase 'is-invalid'
             let invalidFields = form.querySelectorAll('.is-invalid');
             if (invalidFields.length > 0) {
-                inputCesar.classList.add('is-invalid');
-                inputCesar.classList.remove('is-valid');
                 event.preventDefault();
                 event.stopPropagation();
             }
