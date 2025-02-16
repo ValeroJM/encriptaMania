@@ -228,7 +228,8 @@ function copiarAClipboardTextarea() {
 
 function validateForm() {
     let form = document.querySelector('.needs-validation');
-    if (!form.checkValidity()) {
+    let inputCesar = form.querySelector('#cesarPassword');
+    if (!form.checkValidity() || (inputCesar.offsetParent !== null && (inputCesar.value.trim() === '' || inputCesar.classList.contains('is-invalid') || isNaN(parseInt(inputCesar.value))))) {
         form.classList.add('was-validated');
         return false;
     }
@@ -268,10 +269,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        // Validación personalizada antes de la validación de Bootstrap
         form.addEventListener('submit', function(event) {
             // Verificar la visibilidad y la validez del inputCesar
-            if (!form.checkValidity() || inputCesar.classList.contains('is-invalid')) {
-                console.log('Estoy dentro de la validacion del formulario invalida')
+            if (inputCesar.offsetParent !== null && (inputCesar.value.trim() === '' || inputCesar.classList.contains('is-invalid') || isNaN(parseInt(inputCesar.value)))) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Verificar si cualquier campo tiene la clase 'is-invalid'
+            let invalidFields = form.querySelectorAll('.is-invalid');
+            if (invalidFields.length > 0) {
+                inputCesar.classList.add('is-invalid');
+                inputCesar.classList.remove('is-valid');
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            if (!form.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
             }
