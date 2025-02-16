@@ -229,7 +229,7 @@ function copiarAClipboardTextarea() {
 function validateForm() {
     let form = document.querySelector('.needs-validation');
     let inputCesar = form.querySelector('#cesarPassword');
-    if (!form.checkValidity() || (inputCesar.offsetParent !== null && (inputCesar.value.trim() === '' || inputCesar.classList.contains('is-invalid') || isNaN(parseInt(inputCesar.value))))) {
+    if (!form.checkValidity() || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120))) {
         form.classList.add('was-validated');
         return false;
     }
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
         inputCesar.addEventListener('input', function() {
             let claveCesar = inputCesar.value;
-            if (claveCesar.trim() === '' || isNaN(parseInt(claveCesar)) || parseInt(claveCesar) < 1 || parseInt(claveCesar) > 121) {
+            if (claveCesar < 1 || claveCesar > 121) {
                 inputCesar.classList.add('is-invalid');
                 inputCesar.classList.remove('is-valid');
             } else {
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Validación personalizada antes de la validación de Bootstrap
         form.addEventListener('submit', function(event) {
             // Verificar la visibilidad y la validez del inputCesar
-            if (inputCesar.offsetParent !== null && (inputCesar.value.trim() === '' || inputCesar.classList.contains('is-invalid') || isNaN(parseInt(inputCesar.value)))) {
+            if (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) {
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -315,6 +315,15 @@ window.onload = function() {
     let savedSelectCifrado = localStorage.getItem("seleccionCifrado");
     if (savedSelectCifrado){
         document.getElementById("cifrado").value = savedSelectCifrado;
+    }
+
+    // Recuperar el valor de la claveCesar
+    let savedClaveCesar = localStorage.getItem("cesarPassword");
+    if (savedClaveCesar){
+        // Este comando muestra el campo passwordCesarCrupoCampo
+        document.getElementById('passwordCesarGrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el imput
+        document.getElementById("cesarPassword").value = savedClaveCesar;
     }
 };
 
