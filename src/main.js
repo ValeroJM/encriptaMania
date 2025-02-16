@@ -1,26 +1,14 @@
 import {ci_a1e2i3o4u5, dci_a1e2i3o4u5} from './c_a1e2i3o4u5.js';
 import {ci_reverso, dci_reverso} from './c_reverso.js';
 import {ci_zigzag, dci_zigzag} from './c_zigzag.js';
-//import {ci_cesar, dci_cesar} from './c_cesar.js';
-
-
-//Esta función observa que tipo de cifrado se seleccion en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
-document.getElementById('cifrado').addEventListener('change', function() {
-    let encryptionType = this.value;
-    let passwordCesar = document.getElementById('passwordCesar');
-    if (encryptionType === '4') {
-        passwordCesar.style.display = 'block';
-    } else {
-        passwordCesar.style.display = 'none';
-    }
-});
+import {ci_cesar, dci_cesar} from './c_cesar.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
         let textAreaStr = document.getElementById("mensajeTextarea").value;
         guardarMensajeTextarea();
         guardarSeleccionCifrado();
-        //guardarClaveCesar();
+        guardarClaveCesar();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoEncriptado = encriptarODesencriptar('encriptar');
@@ -39,7 +27,7 @@ function desencriptarAccBtn(){
         let textAreaStr = document.getElementById("mensajeTextarea").value;
         guardarMensajeTextarea();
         guardarSeleccionCifrado();
-        //guardarClaveCesar();
+        guardarClaveCesar();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
@@ -56,6 +44,7 @@ function desencriptarAccBtn(){
 function encriptarODesencriptar(accion){
     let tipoCifrado = localStorage.getItem("seleccionCifrado");
     let mensajeOriginal = localStorage.getItem("mensajeTextarea");
+    let claveCesarOriginal = parseInt(localStorage.getItem("cesarPassword"));
     let resultado;
     
     if (tipoCifrado === '1'){
@@ -65,8 +54,7 @@ function encriptarODesencriptar(accion){
     }else if(tipoCifrado === '3'){
         resultado = accion === 'encriptar' ? ci_zigzag(mensajeOriginal) : dci_zigzag(mensajeOriginal);
     }else if(tipoCifrado === '4'){
-        //let claveCesarOriginal = localStorage.getItem("claveCesar");
-        //resultado = accion === 'encriptar' ? ci_cesar(mensajeOriginal, claveCesarOriginal) : dci_cesar(mensajeOriginal, claveCesarOriginal);
+        resultado = accion === 'encriptar' ? ci_cesar(mensajeOriginal, claveCesarOriginal) : dci_cesar(mensajeOriginal, claveCesarOriginal);
     }
 
     return resultado;
@@ -82,12 +70,12 @@ function guardarSeleccionCifrado(){
     localStorage.setItem("seleccionCifrado", cifradoSelect);
 }
 
-/*
+
 function guardarClaveCesar(){
     let claveCesar = document.getElementById("cesarPassword").value;
     localStorage.setItem("cesarPassword", claveCesar);
 }
-*/
+
 
 function msjEncriptado(msjEncriptadoStr){
     let textEncriptarCard = document.getElementById("msjEncriptado");
@@ -172,7 +160,7 @@ function limpiarYRecargar() {
     localStorage.removeItem("msjDesencriptado");
     localStorage.removeItem("mensajeTextarea");
     localStorage.removeItem("seleccionCifrado");
-    localStorage.removeItem("claveCesar");
+    localStorage.removeItem("cesarPassword");
     
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
@@ -247,18 +235,31 @@ function validateForm() {
     return true;
 }
 
-//Validador del formulario --- Empieza aquí: ---
+// Validador del formulario --- Empieza aquí: ---
 document.addEventListener('DOMContentLoaded', function() {
+    'use strict'
     let forms = document.querySelectorAll('.needs-validation');
 
     Array.prototype.slice.call(forms).forEach(function(form) {
         let inputCesar = form.querySelector('#cesarPassword');
+        let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
+       
+        // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
+        document.getElementById('cifrado').addEventListener('change', function() {
+            let encryptionType = this.value;
+            if (encryptionType === '4') {
+                passwordCesarGrupoCampo.style.display = 'block';
+                inputCesar.setAttribute('required', 'required');
+            } else {
+                passwordCesarGrupoCampo.style.display = 'none';
+                inputCesar.removeAttribute('required');
+            }
+        });
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
         inputCesar.addEventListener('input', function() {
-            let claveCesar = parseInt(inputCesar.value);
-
-            if (isNaN(claveCesar) || claveCesar < 1 || claveCesar > 121) {
+            let claveCesar = inputCesar.value;
+            if (claveCesar.trim() === '' || isNaN(parseInt(claveCesar)) || parseInt(claveCesar) < 1 || parseInt(claveCesar) > 121) {
                 inputCesar.classList.add('is-invalid');
                 inputCesar.classList.remove('is-valid');
             } else {
@@ -268,16 +269,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         form.addEventListener('submit', function(event) {
+            // Verificar la visibilidad y la validez del inputCesar
             if (!form.checkValidity() || inputCesar.classList.contains('is-invalid')) {
+                console.log('Estoy dentro de la validacion del formulario invalida')
                 event.preventDefault();
                 event.stopPropagation();
             }
-
+            
             form.classList.add('was-validated');
         }, false);
     });
 });
-//--- fin Validador del formulario ---
+// --- fin Validador del formulario ---
 
 window.onload = function() {
     let encriptarCard = document.getElementById("encriptarCard");
