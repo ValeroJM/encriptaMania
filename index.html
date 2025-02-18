@@ -28,23 +28,33 @@
                   <option value="3">Invertir</option>
                   <option value="4">ZigZag</option>
                   <option value="5">Cifrado Cesar</option>
+                  <option value="6">Transposicion 5</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
                 </div>
               </div>
+              <!--Campo Clave Cesar-->
               <div class="col-12" class="form-group" id="passwordCesarGrupoCampo" style="display: none;">
                 <label for="cesarPassword">Clave Numérica:</label>
                 <input type="number" class="form-control" id="cesarPassword" placeholder="Escriba su clave numérica (del 1 al 120)">
                 <div class="invalid-feedback">
-                  Por favor, escribe valor numérico del 1 al 120.
+                  Por favor, escriba un valor numérico del 1 al 120.
+                </div>
+              </div>
+              <!--Transposicion 5-->
+              <div class="col-12" class="form-group" id="transposicionGrupoCampo" style="display: none;">
+                <label for="transposicionSecuencia">Secuencia de Transposicion:</label>
+                <input type="number" class="form-control" id="transposicionSecuencia" placeholder="Escriba escriba su secuencia de transposicion (Ej.: 53241)">
+                <div class="invalid-feedback">
+                  Por favor, escriba una convinacion numérica del 1 al 5 de 5 dígitos. Ej.: 23451 o 45321.
                 </div>
               </div>
               <div class="col-12">
                 <label for="mensajeTextarea">Mensaje a cifrar o descifrar:</label>
                 <textarea class="form-control" id="mensajeTextarea" rows="3" required></textarea>
                 <div class="invalid-feedback">
-                  Por favor, escribe un mensaje a encriptar o desencriptar.
+                  Por favor, escriba un mensaje a encriptar o desencriptar.
                 </div>
               </div>
               <div class="col-12">
@@ -85,7 +95,7 @@
             <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
               <img src="./src/img/icons8-llave.svg" class="rounded mx-auto d-block" alt="Encripta Mania Logo" width="35" height="35">
             </a>
-            <p class="text-muted">Encripta Mania V.2<br>© 2025</p>
+            <p class="text-muted">Encripta Manía V.2<br>© 2025</p>
           </div>
       
           <div class="col mb-3">
