@@ -4,6 +4,7 @@ import {ci_zigzag, dci_zigzag} from './c_zigzag.js';
 import {ci_cesar, dci_cesar} from './c_cesar.js';
 import {transposicion5DigStr} from './diccionario.js';
 import {ci_transposition, dci_transposition} from './c_transposition.js';
+import {ci_binario, dci_binario, ci_binario_inv, dci_binario_inv} from './c_binario.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -64,6 +65,12 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_cesar(mensajeOriginal, claveCesarOriginal) : dci_cesar(mensajeOriginal, claveCesarOriginal);
     }else if(tipoCifrado === '6'){
         resultado = accion === 'encriptar' ? ci_transposition(mensajeOriginal, secuenciaTransposicion) : dci_transposition(mensajeOriginal, secuenciaTransposicion);
+    }else if(tipoCifrado === '7'){
+        resultado = accion === 'encriptar' ? ci_binario(mensajeOriginal) : dci_binario(mensajeOriginal);
+    }else if(tipoCifrado === '8'){
+        resultado = accion === 'encriptar' ? ci_binario_inv(mensajeOriginal) : dci_binario_inv(mensajeOriginal);
+    }else if(tipoCifrado === '9'){
+        resultado = accion === 'encriptar' ? ci_cesar(mensajeOriginal, 54) : dci_cesar(mensajeOriginal, 54);
     }
 
     return resultado;
