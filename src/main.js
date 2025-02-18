@@ -2,6 +2,8 @@ import {ci_a1e2i3o4u5, dci_a1e2i3o4u5, ci_a1e2i3o4u5_v2, dci_a1e2i3o4u5_v2} from
 import {ci_reverso, dci_reverso} from './c_reverso.js';
 import {ci_zigzag, dci_zigzag} from './c_zigzag.js';
 import {ci_cesar, dci_cesar} from './c_cesar.js';
+import {transposicion5DigStr} from './diccionario.js';
+import {ci_transposition, dci_transposition} from './c_transposition.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -9,6 +11,7 @@ function encriptarAccBtn(){
         guardarMensajeTextarea();
         guardarSeleccionCifrado();
         guardarClaveCesar();
+        guardarSecuenciaDeTransposicion();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoEncriptado = encriptarODesencriptar('encriptar');
@@ -28,6 +31,7 @@ function desencriptarAccBtn(){
         guardarMensajeTextarea();
         guardarSeleccionCifrado();
         guardarClaveCesar();
+        guardarSecuenciaDeTransposicion();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
@@ -45,6 +49,7 @@ function encriptarODesencriptar(accion){
     let tipoCifrado = localStorage.getItem("seleccionCifrado");
     let mensajeOriginal = localStorage.getItem("mensajeTextarea");
     let claveCesarOriginal = parseInt(localStorage.getItem("cesarPassword"));
+    let secuenciaTransposicion = parseInt(localStorage.getItem("transposicionSecuencia"));
     let resultado;
     
     if (tipoCifrado === '1'){
@@ -57,6 +62,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_zigzag(mensajeOriginal) : dci_zigzag(mensajeOriginal);
     }else if(tipoCifrado === '5'){
         resultado = accion === 'encriptar' ? ci_cesar(mensajeOriginal, claveCesarOriginal) : dci_cesar(mensajeOriginal, claveCesarOriginal);
+    }else if(tipoCifrado === '6'){
+        resultado = accion === 'encriptar' ? ci_transposition(mensajeOriginal, secuenciaTransposicion) : dci_transposition(mensajeOriginal, secuenciaTransposicion);
     }
 
     return resultado;
@@ -78,6 +85,10 @@ function guardarClaveCesar(){
     localStorage.setItem("cesarPassword", claveCesar);
 }
 
+function guardarSecuenciaDeTransposicion(){
+    let secuenciaDeTransposicion = document.getElementById("transposicionSecuencia").value;
+    localStorage.setItem("transposicionSecuencia", secuenciaDeTransposicion);
+}
 
 function msjEncriptado(msjEncriptadoStr){
     let textEncriptarCard = document.getElementById("msjEncriptado");
@@ -163,7 +174,8 @@ function limpiarYRecargar() {
     localStorage.removeItem("mensajeTextarea");
     localStorage.removeItem("seleccionCifrado");
     localStorage.removeItem("cesarPassword");
-    
+    localStorage.removeItem("transposicionSecuencia");
+        
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
     desencriptarCard.style.display = "none";
@@ -231,7 +243,8 @@ function copiarAClipboardTextarea() {
 function validateForm() {
     let form = document.querySelector('.needs-validation');
     let inputCesar = form.querySelector('#cesarPassword');
-    if (!form.checkValidity() || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120))) {
+    let inputTransposicion = form.querySelector('#transposicionSecuencia');
+    if (!form.checkValidity() || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) || (inputTransposicion.offsetParent !== null && ((String(inputTransposicion.value).length < 5 || String(inputTransposicion.value).length >= 6) || !transposicion5DigStr.includes(String(inputTransposicion.value))))) {
         form.classList.add('was-validated');
         return false;
     }
@@ -245,7 +258,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Array.prototype.slice.call(forms).forEach(function(form) {
         let inputCesar = form.querySelector('#cesarPassword');
+        let inputTransposicion = form.querySelector('#transposicionSecuencia');
         let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
+        let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
@@ -253,9 +268,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (encryptionType === '5') {
                 passwordCesarGrupoCampo.style.display = 'block';
                 inputCesar.setAttribute('required', 'required');
-            } else {
+            } else if(encryptionType === '6'){
+                transposicionGrupoCampo.style.display = 'block';
+                inputTransposicion.setAttribute('required', 'required');
+            }else {
                 passwordCesarGrupoCampo.style.display = 'none';
+                transposicionGrupoCampo.style.display = 'none';
                 inputCesar.removeAttribute('required');
+                inputTransposicion.removeAttribute('required');
             }
         });
 
@@ -270,11 +290,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 inputCesar.classList.add('is-valid');
             }
         });
+
+        // Verificar cada vez que se cambia el valor del campo de texto inputTransposicion
+        inputTransposicion.addEventListener('input', function() {
+            let secuenciaTransposicion = inputTransposicion.value;
+            let estaIncludioEnDiccionario = transposicion5DigStr.includes(String(secuenciaTransposicion));
+
+            if ((String(secuenciaTransposicion).length < 5 || String(secuenciaTransposicion).length >= 6) || !estaIncludioEnDiccionario) {
+                inputTransposicion.classList.add('is-invalid');
+                inputTransposicion.classList.remove('is-valid');
+            } else {
+                inputTransposicion.classList.remove('is-invalid');
+                inputTransposicion.classList.add('is-valid');
+            }
+        });
         
         // Validación personalizada antes de la validación de Bootstrap
         form.addEventListener('submit', function(event) {
             // Verificar la visibilidad y la validez del inputCesar
             if (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Verificar la visibilidad y la validez del inputTransposicion
+            if (inputTransposicion.offsetParent !== null && ((String(inputTransposicion.value).length < 5 || String(inputTransposicion.value).length >= 6) || !transposicion5DigStr.includes(String(inputTransposicion.value)))) {
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -326,6 +366,15 @@ window.onload = function() {
         document.getElementById('passwordCesarGrupoCampo').style.display = 'block';
         // Este otro comando recupera el valor del localStorage y lo pone en el imput
         document.getElementById("cesarPassword").value = savedClaveCesar;
+    }
+
+    // Recuperar el valor de la transposicionSecuencia
+    let savedTransposicionSecuencia = localStorage.getItem("transposicionSecuencia");
+    if (savedTransposicionSecuencia){
+        // Este comando muestra el campo passwordCesarCrupoCampo
+        document.getElementById('transposicionGrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el imput
+        document.getElementById("transposicionSecuencia").value = savedTransposicionSecuencia;
     }
 };
 
