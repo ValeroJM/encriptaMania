@@ -6,6 +6,7 @@ import {transposicion5DigStr} from './diccionario.js';
 import {ci_transposition, dci_transposition} from './c_transposition.js';
 import {ci_binario, dci_binario, ci_binario_inv, dci_binario_inv} from './c_binario.js';
 import {ci_atbash, dci_atbash} from './c_atbash.js';
+import {ci_leetSpeak, dci_leetSpeak} from './c_leetSpeak.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -72,6 +73,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_binario_inv(mensajeOriginal) : dci_binario_inv(mensajeOriginal);
     }else if(tipoCifrado === '9'){
         resultado = accion === 'encriptar' ? ci_atbash(mensajeOriginal) : dci_atbash(mensajeOriginal);
+    }else if(tipoCifrado === '10'){
+        resultado = accion === 'encriptar' ? ci_leetSpeak(mensajeOriginal) : dci_leetSpeak(mensajeOriginal);
     }
 
     return resultado;
