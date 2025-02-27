@@ -9,6 +9,7 @@ import {ci_atbash, dci_atbash} from './c_atbash.js';
 import {ci_leetSpeak, dci_leetSpeak} from './c_leetSpeak.js';
 import {ci_abcDecimal, dci_abcDecimal} from './c_abcdarioDecimal.js';
 import {ci_codigoMorse, dci_codigoMorse} from './c_codigoMorse.js';
+import {ci_hexadecimal, dci_hexadecimal} from './c_hexadecimal.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -81,6 +82,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_abcDecimal(mensajeOriginal) : dci_abcDecimal(mensajeOriginal);
     }else if(tipoCifrado === '12'){
         resultado = accion === 'encriptar' ? ci_codigoMorse(mensajeOriginal) : dci_codigoMorse(mensajeOriginal);
+    }else if(tipoCifrado === '13'){
+        resultado = accion === 'encriptar' ? ci_hexadecimal(mensajeOriginal) : dci_hexadecimal(mensajeOriginal);
     }
 
     return resultado;
