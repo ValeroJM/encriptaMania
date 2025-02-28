@@ -23,4 +23,16 @@ const abcedarioDecimalList = ['00','10','11','12','13','20','21','22','23','30',
 const abcedarioSignoMorseList = [' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','.',',','?','"','/'];
 const codigoMorseList = ['----','.-','-...','-.-.','-..','.','..-.','--.','....','..','.---','-.-','.-..','--','-.','--.--','---','.--.','--.-','.-.','...','-','..-','...-','.--','-..-','-.--','--..','-----','.----','..---','...--','....-','.....','-....','--...','---..','----.','.-.-.-','--..--','..--..','.-..-.','-..-.'];
 
-export {abcedario, transposicion5DigStr, abcedarioAtbash, abcedarioLeetSpeak, abcedarioList, abcedarioDecimalList, abcedarioSignoMorseList, codigoMorseList};
+const abecedarioBifidoList = [['a','b','c','d','e','f','g','h','i','j','k'],
+                              ['l','m','n','ñ','o','p','q','r','s','t','u'],
+                              ['v','w','x','y','z','ç','á','é','í','ó','ú'],
+                              ['Á','É','Í','Ó','Ú','ä','ë','ï','ö','ü','Ä'],
+                              ['Ö','Ü','A','B','C','D','E','F','G','H','I'],
+                              ['J','K','L','M','N','Ñ','O','P','Q','R','S'],
+                              ['T','U','V','W','X','Y','Z','Ç','!','¡','\"'],
+                              ['#','$','\t','%','&',"'",'(',')','\n','*','+'],
+                              [',','-','.','/',' ',':',';','<','=','>','¿'],
+                              ['?','@','[','\\',']','^','_','`','{','|','}'],
+                              ['~','0','1','2','3','4','5','6','7','8','9']];
+
+export {abcedario, transposicion5DigStr, abcedarioAtbash, abcedarioLeetSpeak, abcedarioList, abcedarioDecimalList, abcedarioSignoMorseList, codigoMorseList, abecedarioBifidoList};
