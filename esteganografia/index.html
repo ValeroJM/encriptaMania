@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Esteganografía en JavaScript</title>
+</head>
+<body>
+    <input type="file" id="inputImage" accept="image/*">
+    <canvas id="canvas" style="display:none;"></canvas>
+    <button onclick="hideMessage()">Ocultar mensaje</button>
+    <button onclick="revealMessage()">Revelar mensaje</button>
+    <script>
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+        let img = new Image();
+        let message = "Este es el mensaje oculto.";
+
+        document.getElementById('inputImage').onchange = function (event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                img.src = e.target.result;
+                img.onload = function () {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                }
+            };
+            reader.readAsDataURL(file);
+        };
+
+        function hideMessage() {
+            let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let data = imgData.data;
+            let binaryMessage = '';
+            for (let i = 0; i < message.length; i++) {
+                binaryMessage += message[i].charCodeAt(0).toString(2).padStart(8, '0');
+            }
+            for (let i = 0; i < binaryMessage.length; i++) {
+                data[i * 4] = (data[i * 4] & 254) | parseInt(binaryMessage[i], 2);
+            }
+            ctx.putImageData(imgData, 0, 0);
+            alert('Mensaje oculto en la imagen.');
+        }
+
+        function revealMessage() {
+            let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let data = imgData.data;
+            let binaryMessage = '';
+            for (let i = 0; i < data.length && i < 8 * message.length * 4; i += 4) {
+                binaryMessage += (data[i] & 1).toString();
+            }
+            let decodedMessage = '';
+            for (let i = 0; i < binaryMessage.length; i += 8) {
+                decodedMessage += String.fromCharCode(parseInt(binaryMessage.substr(i, 8), 2));
+            }
+            alert('Mensaje revelado: ' + decodedMessage);
+        }
+    </script>
+</body>
+</html>
