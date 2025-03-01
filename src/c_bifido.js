@@ -11,10 +11,9 @@ function ci_bifido(text){
         coordenadasOrignalList.push(coordenadasLetra[1]);
     }
 
-    let coodenadasBifidas = text.length-1;
+    let coodenadasBifidas = text.length;
 
     for (let i = 0; i < text.length; i++){
-        
         result += abecedarioBifidoList[coordenadasOrignalList[i]][coordenadasOrignalList[coodenadasBifidas]];
         coodenadasBifidas++;
     }
@@ -64,14 +63,4 @@ function encuentraCoordenadasDe(arr, target) {
     return [];
 }
 
-let msj = 'Esto es solo una prueba para saber si busca las coordenadas o no';
-
-console.log('length texto original', msj.length);
-
-let msjCifrado = ci_bifido(msj);
-let msjDecifrado = dci_bifido(msjCifrado);
-
-console.log('Mensaje cifrado:', msjCifrado);
-console.log('length texto cifrado', msjCifrado.length);
-console.log('Mensaje descifrado:', msjDecifrado);
-console.log('Length Mensaje Decifrado:', msjDecifrado.length);
+export {ci_bifido, dci_bifido};
