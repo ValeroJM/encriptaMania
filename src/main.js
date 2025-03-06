@@ -11,6 +11,7 @@ import {ci_abcDecimal, dci_abcDecimal} from './c_abcdarioDecimal.js';
 import {ci_codigoMorse, dci_codigoMorse} from './c_codigoMorse.js';
 import {ci_hexadecimal, dci_hexadecimal} from './c_hexadecimal.js';
 import {ci_bifido, dci_bifido} from './c_bifido.js';
+import {ci_octal, dci_octal} from './c_octal.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -87,6 +88,10 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_hexadecimal(mensajeOriginal) : dci_hexadecimal(mensajeOriginal);
     }else if(tipoCifrado === '14'){
         resultado = accion === 'encriptar' ? ci_bifido(mensajeOriginal) : dci_bifido(mensajeOriginal);
+    }else if(tipoCifrado === '15'){
+        resultado = accion === 'encriptar' ? ci_octal(mensajeOriginal) : dci_octal(mensajeOriginal);
+    }else if(tipoCifrado === '16'){
+        resultado = accion === 'encriptar' ? btoa(mensajeOriginal) : atob(mensajeOriginal);
     }
 
     return resultado;
@@ -115,12 +120,12 @@ function guardarSecuenciaDeTransposicion(){
 
 function msjEncriptado(msjEncriptadoStr){
     let textEncriptarCard = document.getElementById("msjEncriptado");
-    textEncriptarCard.innerHTML = msjEncriptadoStr;
+    textEncriptarCard.textContent = msjEncriptadoStr;
 }
 
 function msjDesencriptado(msjDesencriptadoStr){
     let textDesencriptarCard = document.getElementById("msjDesencriptado");
-    textDesencriptarCard.innerHTML = msjDesencriptadoStr;
+    textDesencriptarCard.textContent = msjDesencriptadoStr;
 }
 
 function mostrarEncriptarCard() {
