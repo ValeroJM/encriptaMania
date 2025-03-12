@@ -39,6 +39,7 @@
                   <option value="14">Bífido</option>
                   <option value="15">Octal</option>
                   <option value="16">Base64</option>
+                  <option value="17">Cifrado Vigenere</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -58,6 +59,14 @@
                 <input type="number" class="form-control" id="transposicionSecuencia" placeholder="Escriba escriba su secuencia de transposicion (Ej.: 53241)">
                 <div class="invalid-feedback">
                   Por favor, escriba una convinacion numérica del 1 al 5 de 5 dígitos. Ej.: 23451 o 45321.
+                </div>
+              </div>
+              <!--Campo Password Vigenere-->
+              <div class="col-12" class="form-group" id="passwordVigenereGrupoCampo" style="display: none;">
+                <label for="vigenerePassword">Password:</label>
+                <input type="text" class="form-control" id="vigenerePassword" placeholder="Escriba su password">
+                <div class="invalid-feedback">
+                  Por favor, escriba un password con almenos 1 caracter alfanumérico.
                 </div>
               </div>
               <div class="col-12">
