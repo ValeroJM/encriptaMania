@@ -13,6 +13,7 @@ import {ci_hexadecimal, dci_hexadecimal} from './c_hexadecimal.js';
 import {ci_bifido, dci_bifido} from './c_bifido.js';
 import {ci_octal, dci_octal} from './c_octal.js';
 import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
+import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago} from './c_playfair.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -98,6 +99,10 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? btoa(mensajeOriginal) : atob(mensajeOriginal);
     }else if(tipoCifrado === '17'){
         resultado = accion === 'encriptar' ? ci_vigenere(mensajeOriginal, passwordVigenere) : dci_vigenere(mensajeOriginal, passwordVigenere);
+    }else if(tipoCifrado === '18'){
+        resultado = accion === 'encriptar' ? ci_playfair(mensajeOriginal) : dci_playfair(mensajeOriginal);
+    }else if(tipoCifrado === '19'){
+        resultado = accion === 'encriptar' ? ci_playfairMurcielago(mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
     }
 
     return resultado;
