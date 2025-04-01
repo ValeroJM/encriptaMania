@@ -111,7 +111,7 @@ function dci_playfair(text){
     }
 
     if (result.at(result.length-1) === '='){
-        result = result.substring(0, result.length-1);
+        result = result.slice(0, -1);
     }
 
     return result;
@@ -228,7 +228,7 @@ function dci_playfairMurcielago(text){
     }
 
     if (result.at(result.length-1) === '='){
-        result = result.substring(0, result.length-1);
+        result = result.slice(0, -1);
     }
 
     return result;
