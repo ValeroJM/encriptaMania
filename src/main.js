@@ -306,31 +306,47 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputCesar = form.querySelector('#cesarPassword');
         let inputTransposicion = form.querySelector('#transposicionSecuencia');
         let inputVigenere = form.querySelector('#vigenerePassword');
+        let inputImagenEsteganografia = form.querySelector('#imagenEsteganografia');
         let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
         let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
         let passwordVigenereGrupoCampo = document.getElementById('passwordVigenereGrupoCampo');
+        let imagenEsteganografiaGroupCampo = document.getElementById('imagenEsteganografiaGroupCampo');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
             let encryptionType = this.value;
             if (encryptionType === '5') {
+                resetForm();
                 passwordCesarGrupoCampo.style.display = 'block';
                 inputCesar.setAttribute('required', 'required');
             }else if(encryptionType === '6'){
+                resetForm();
                 transposicionGrupoCampo.style.display = 'block';
                 inputTransposicion.setAttribute('required', 'required');
             }else if(encryptionType === '17'){
+                resetForm();
                 passwordVigenereGrupoCampo.style.display = 'block';
                 inputVigenere.setAttribute('required', 'required');
+            }else if(encryptionType === '20'){
+                resetForm();
+                imagenEsteganografiaGroupCampo.style.display = 'block';
+                inputImagenEsteganografia.setAttribute('required', 'required');
             }else {
-                passwordCesarGrupoCampo.style.display = 'none';
-                transposicionGrupoCampo.style.display = 'none';
-                passwordVigenereGrupoCampo.style.display = 'none';
-                inputCesar.removeAttribute('required');
-                inputTransposicion.removeAttribute('required');
-                inputVigenere.removeAttribute('required');
+                resetForm();
             }
         });
+
+        //Este función Resetea todo el fomulario para encriptados con Password o campos extra
+        function resetForm(){
+            passwordCesarGrupoCampo.style.display = 'none';
+            transposicionGrupoCampo.style.display = 'none';
+            passwordVigenereGrupoCampo.style.display = 'none';
+            imagenEsteganografiaGroupCampo.style.display = 'none';
+            inputCesar.removeAttribute('required');
+            inputTransposicion.removeAttribute('required');
+            inputVigenere.removeAttribute('required');
+            inputImagenEsteganografia.removeAttribute('required');
+        }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
         inputCesar.addEventListener('input', function() {
