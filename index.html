@@ -42,6 +42,7 @@
                   <option value="17">Cifrado Vigenere</option>
                   <option value="18">Cifrado Playfair</option>
                   <option value="19">Cifrado Playfair Murciélago</option>
+                  <option value="20">Estegranografía</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -69,6 +70,14 @@
                 <input type="text" class="form-control" id="vigenerePassword" placeholder="Escriba su password">
                 <div class="invalid-feedback">
                   Por favor, escriba un password con almenos 1 caracter alfanumérico.
+                </div>
+              </div>
+              <!--Esteganografía-->
+              <div class="col-12" class="form-group" id="imagenEsteganografiaGroupCampo" style="display: none;">
+                <label for="imagenEsteganografia">Ruta de la Imagen:</label>
+                <input type="file" class="form-control" id="imagenEsteganografia" placeholder="Cargue una imagen">
+                <div class="invalid-feedback">
+                  Por favor, selecciones una imagen.
                 </div>
               </div>
               <div class="col-12">
@@ -116,7 +125,7 @@
             <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
               <img src="./src/img/icons8-llave.svg" class="rounded mx-auto d-block" alt="Encripta Mania Logo" width="35" height="35">
             </a>
-            <p class="text-muted">Encripta Manía V.2.3.6<br>© 2025</p>
+            <p class="text-muted">Encripta Manía V.3.0.0<br>© 2025</p>
           </div>
       
           <div class="col mb-3">
