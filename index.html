@@ -101,7 +101,13 @@
               <h5 class="card-header">Mensaje Cifrado</h5>
               <div class="card-body">
                 <p class="card-text" id="msjEncriptado">With supporting text below as a natural lead-in to additional content.</p>
+                <!--Canvas para la imagen de esteganografía-->
+                <canvas id="canvas" style="display:none;"></canvas>
+                <!--Fin Canvas-->
                 <button class="btn btn-primary" id="copiarBtnEnc">Copiar</button>
+                <!--Botón de Guardar si usamos esteganografía-->
+                <button class="btn btn-primary" id="saveBtnEnc" style="display: none;">Guardar</button>
+                <!--Fin Botón guardar-->
               </div>
             </div>
             <button class="btn btn-primary my-1" id="limpiarEnc">Limpiar</button>

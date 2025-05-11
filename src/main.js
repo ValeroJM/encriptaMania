@@ -14,6 +14,7 @@ import {ci_bifido, dci_bifido} from './c_bifido.js';
 import {ci_octal, dci_octal} from './c_octal.js';
 import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
 import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago} from './c_playfair.js';
+import {esteganoHandleFileUpload, ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -147,7 +148,7 @@ function msjDesencriptado(msjDesencriptadoStr){
 function mostrarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     let desencriptarCard = document.getElementById("desencriptarCard");
-    
+
     desencriptarCard.style.display = "none"; // Asegurarse de que la otra tarjeta está oculta
     encriptarCard.style.display = "block";
     mostrarCopiBtnTextarea();
@@ -178,10 +179,25 @@ function mostrarCopiBtnTextarea(){
     desencriptarBtn.style.display = "none"; //Ocultar boton de desencriptado
 }
 
+function mostrarGuardarBtnEncriptaCard(){
+    let copiBtnEnc = document.getElementById("copiarBtnEnc");
+    let guardarBtnEnc = document.getElementById("saveBtnEnc");
+
+    guardarBtnEnc.style.display = "block";
+    copiBtnEnc.style.display = "none"; // Oculta boton copiar
+}
+
 function comprobarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
+    let tipoCifrado = localStorage.getItem("seleccionCifrado");
     if (localStorage.getItem("encriptarCardVisible") === "true") {
         encriptarCard.style.display = "block";
+
+        // Condicion para cambiar el botón guardar si usamos esteganografía
+        if(tipoCifrado === '20'){
+        mostrarGuardarBtnEncriptaCard();
+        }
+
         mostrarCopiBtnTextarea();
         let msjEncriptadoStr = localStorage.getItem("msjEncriptado");
         if (msjEncriptadoStr) {
@@ -464,7 +480,7 @@ window.onload = function() {
         document.getElementById("transposicionSecuencia").value = savedTransposicionSecuencia;
     }
 
-    // Recuperar el valor de la claveCesar
+    // Recuperar el valor de la claveVigenere
     let savedPasswordVigenere = localStorage.getItem("vigenerePassword");
     if (savedPasswordVigenere){
         // Este comando muestra el campo passwordVigenereGrupoCampo
@@ -481,3 +497,4 @@ document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar
 document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
 document.getElementById("copiarBtnDes").addEventListener("click", copiarAClipboardDes);
 document.getElementById("copiarBtnTextarea").addEventListener("click", copiarAClipboardTextarea);
+document.getElementById("imagenEsteganografia").addEventListener("change", esteganoHandleFileUpload); //Me pregunto si habría que crear la variables aquí o si usará las del archivo de esteganografía
