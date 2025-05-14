@@ -198,34 +198,6 @@ function mostrarCanvasEncriptaCard(){
     mensajeEncriptadoParrafo.style.display = "none"; // Oculta mensaje
 }
 
-//Variables para esteganografía
-const canvas = document.getElementById("canvasImg");
-const ctx = canvas.getContext("2d");
-let image = null;
-
-/*
-function esteganoHandleFileUpload(event) {
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    image.src = e.target.result;
-    image.onload = function () {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      ctx.drawImage(image, 0, 0);
-    };
-  };
-  reader.readAsDataURL(event.target.files[0]);
-}
-*/
-
-function renderImage(){
-    canvas.width = image.width;
-    canvas.height = image.height;
-
-    ctx.drawImage(image, 0, 0);
-}
-//Fin esteganografía
-
 function comprobarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     let tipoCifrado = localStorage.getItem("seleccionCifrado");
@@ -367,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
         let passwordVigenereGrupoCampo = document.getElementById('passwordVigenereGrupoCampo');
         let imagenEsteganografiaGroupCampo = document.getElementById('imagenEsteganografiaGroupCampo');
+        let canvasPreview = document.getElementById('canvasPreview');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
@@ -387,6 +360,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetForm();
                 imagenEsteganografiaGroupCampo.style.display = 'block';
                 inputImagenEsteganografia.setAttribute('required', 'required');
+                canvasPreview.style.display = 'block';
+
+                //Variables esteganografía
+                const imgInput = document.getElementById('imagenEsteganografia');
+                const canvas = document.getElementById('canvasPreview');
+                const ctx = canvas.getContext('2d');
+
+                //Nuevo Event Listener para cargar la imagen en una Preview
+                imgInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw image
+                    };
+                    img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    }
+                });
             }else {
                 resetForm();
             }
@@ -402,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inputTransposicion.removeAttribute('required');
             inputVigenere.removeAttribute('required');
             inputImagenEsteganografia.removeAttribute('required');
+            canvasPreview.style.display = 'none';
         }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
@@ -537,15 +534,3 @@ document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar
 document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
 document.getElementById("copiarBtnDes").addEventListener("click", copiarAClipboardDes);
 document.getElementById("copiarBtnTextarea").addEventListener("click", copiarAClipboardTextarea);
-
-let tipoCifrado = localStorage.getItem("seleccionCifrado");
-if (tipoCifrado === '20'){
-    //Event listener para cargar la imagen en el Canvas
-    document.getElementById("imagenEsteganografia").addEventListener("change", () => {
-        image = new Image();
-        image.addEventListener("load", () => {
-            renderImage()
-        });
-        image.src = URL.createObjectURL(fileInput.files[0]);
-    });
-}
