@@ -14,7 +14,7 @@ import {ci_bifido, dci_bifido} from './c_bifido.js';
 import {ci_octal, dci_octal} from './c_octal.js';
 import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
 import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago} from './c_playfair.js';
-import {esteganoHandleFileUpload, ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
+//import {esteganoHandleFileUpload, ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -104,8 +104,11 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_playfair(mensajeOriginal) : dci_playfair(mensajeOriginal);
     }else if(tipoCifrado === '19'){
         resultado = accion === 'encriptar' ? ci_playfairMurcielago(mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
+    }/*
+    else if(tipoCifrado === '20'){
+        resultado = accion === 'encriptar' ? estegaTest() : dci_playfairMurcielago(mensajeOriginal);
     }
-
+    */
     return resultado;
 }
 
@@ -187,6 +190,42 @@ function mostrarGuardarBtnEncriptaCard(){
     copiBtnEnc.style.display = "none"; // Oculta boton copiar
 }
 
+function mostrarCanvasEncriptaCard(){
+    let mensajeEncriptadoParrafo = document.getElementById("msjEncriptado");
+    let canvasEspacio = document.getElementById("canvasImg");
+
+    canvasEspacio.style.display = "block";
+    mensajeEncriptadoParrafo.style.display = "none"; // Oculta mensaje
+}
+
+//Variables para esteganografía
+const canvas = document.getElementById("canvasImg");
+const ctx = canvas.getContext("2d");
+let image = null;
+
+/*
+function esteganoHandleFileUpload(event) {
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    image.src = e.target.result;
+    image.onload = function () {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0);
+    };
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+*/
+
+function renderImage(){
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    ctx.drawImage(image, 0, 0);
+}
+//Fin esteganografía
+
 function comprobarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     let tipoCifrado = localStorage.getItem("seleccionCifrado");
@@ -196,6 +235,7 @@ function comprobarEncriptarCard() {
         // Condicion para cambiar el botón guardar si usamos esteganografía
         if(tipoCifrado === '20'){
         mostrarGuardarBtnEncriptaCard();
+        mostrarCanvasEncriptaCard();
         }
 
         mostrarCopiBtnTextarea();
@@ -497,4 +537,15 @@ document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar
 document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
 document.getElementById("copiarBtnDes").addEventListener("click", copiarAClipboardDes);
 document.getElementById("copiarBtnTextarea").addEventListener("click", copiarAClipboardTextarea);
-document.getElementById("imagenEsteganografia").addEventListener("change", esteganoHandleFileUpload); //Me pregunto si habría que crear la variables aquí o si usará las del archivo de esteganografía
+
+let tipoCifrado = localStorage.getItem("seleccionCifrado");
+if (tipoCifrado === '20'){
+    //Event listener para cargar la imagen en el Canvas
+    document.getElementById("imagenEsteganografia").addEventListener("change", () => {
+        image = new Image();
+        image.addEventListener("load", () => {
+            renderImage()
+        });
+        image.src = URL.createObjectURL(fileInput.files[0]);
+    });
+}
