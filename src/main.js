@@ -110,7 +110,7 @@ function encriptarODesencriptar(accion){
     }else if(tipoCifrado === '19'){
         resultado = accion === 'encriptar' ? ci_playfairMurcielago(mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
     }else if(tipoCifrado === '20'){
-        resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
+        resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_esteganografia(canvas, ctx);
     }
     return resultado;
 }
@@ -318,6 +318,16 @@ function copiarAClipboardTextarea() {
     });
 }
 
+function guardarImagenBtn(){
+    const imagen = document.getElementById('nuevaImagen');
+    const enlace = document.createElement('a');
+    enlace.href = imagen.src;
+    enlace.download = 'em_download.png'; // Nombre del archivo al descargar
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
+}
+
 function validateForm() {
     let form = document.querySelector('.needs-validation');
     let inputCesar = form.querySelector('#cesarPassword');
@@ -365,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetForm();
                 imagenEsteganografiaGroupCampo.style.display = 'block';
                 inputImagenEsteganografia.setAttribute('required', 'required');
-                canvasPreview.style.display = 'block';
+                //canvasPreview.style.display = 'block';
                 
                 // Esteganografía
                 // Nuevo Event Listener para cargar la imagen en una Preview
@@ -377,9 +387,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const img = new Image();
                     img.onload = () => {
                         // Ajustar el tamaño del canvas a la imagen
-                        const escala = 2/3;
-                        canvas.width = img.width * escala;
-                        canvas.height = img.height * escala;
+                        canvas.width = img.width;
+                        canvas.height = img.height;
 
                         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw image
@@ -540,3 +549,4 @@ document.getElementById("limpiarDes").addEventListener("click", limpiarYRecargar
 document.getElementById("copiarBtnEnc").addEventListener("click", copiarAClipboardEnc);
 document.getElementById("copiarBtnDes").addEventListener("click", copiarAClipboardDes);
 document.getElementById("copiarBtnTextarea").addEventListener("click", copiarAClipboardTextarea);
+document.getElementById("saveBtnEnc").addEventListener("click", guardarImagenBtn);
