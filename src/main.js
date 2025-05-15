@@ -14,7 +14,7 @@ import {ci_bifido, dci_bifido} from './c_bifido.js';
 import {ci_octal, dci_octal} from './c_octal.js';
 import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
 import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago} from './c_playfair.js';
-//import {esteganoHandleFileUpload, ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
+import {ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -57,6 +57,11 @@ function desencriptarAccBtn(){
         msjDesencriptado(resultadoDesencriptado);
     }
 }
+
+// Variables esteganografía
+const imgInput = document.getElementById('imagenEsteganografia');
+const canvas = document.getElementById('canvasPreview');
+const ctx = canvas.getContext('2d');
 
 function encriptarODesencriptar(accion){
     let tipoCifrado = localStorage.getItem("seleccionCifrado");
@@ -104,11 +109,9 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_playfair(mensajeOriginal) : dci_playfair(mensajeOriginal);
     }else if(tipoCifrado === '19'){
         resultado = accion === 'encriptar' ? ci_playfairMurcielago(mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
-    }/*
-    else if(tipoCifrado === '20'){
-        resultado = accion === 'encriptar' ? estegaTest() : dci_playfairMurcielago(mensajeOriginal);
+    }else if(tipoCifrado === '20'){
+        resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
     }
-    */
     return resultado;
 }
 
@@ -190,24 +193,26 @@ function mostrarGuardarBtnEncriptaCard(){
     copiBtnEnc.style.display = "none"; // Oculta boton copiar
 }
 
-function mostrarCanvasEncriptaCard(){
+function mostrarImagenEncriptaCard(newURL){
     let mensajeEncriptadoParrafo = document.getElementById("msjEncriptado");
-    let canvasEspacio = document.getElementById("canvasImg");
+    let nuevaImagen = document.getElementById("nuevaImagen");
+    nuevaImagen.src = newURL;
 
-    canvasEspacio.style.display = "block";
+    nuevaImagen.style.display = "block";
     mensajeEncriptadoParrafo.style.display = "none"; // Oculta mensaje
 }
 
 function comprobarEncriptarCard() {
     let encriptarCard = document.getElementById("encriptarCard");
     let tipoCifrado = localStorage.getItem("seleccionCifrado");
+    let imagenURL = localStorage.getItem("msjEncriptado");
     if (localStorage.getItem("encriptarCardVisible") === "true") {
         encriptarCard.style.display = "block";
 
         // Condicion para cambiar el botón guardar si usamos esteganografía
         if(tipoCifrado === '20'){
         mostrarGuardarBtnEncriptaCard();
-        mostrarCanvasEncriptaCard();
+        mostrarImagenEncriptaCard(imagenURL);
         }
 
         mostrarCopiBtnTextarea();
@@ -361,13 +366,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 imagenEsteganografiaGroupCampo.style.display = 'block';
                 inputImagenEsteganografia.setAttribute('required', 'required');
                 canvasPreview.style.display = 'block';
-
-                //Variables esteganografía
-                const imgInput = document.getElementById('imagenEsteganografia');
-                const canvas = document.getElementById('canvasPreview');
-                const ctx = canvas.getContext('2d');
-
-                //Nuevo Event Listener para cargar la imagen en una Preview
+                
+                // Esteganografía
+                // Nuevo Event Listener para cargar la imagen en una Preview
                 imgInput.addEventListener('change', (event) => {
                 const file = event.target.files[0];
                 if (file) {
@@ -375,6 +376,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
+                        // Ajustar el tamaño del canvas a la imagen
+                        const escala = 2/3;
+                        canvas.width = img.width * escala;
+                        canvas.height = img.height * escala;
+
                         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw image
                     };
