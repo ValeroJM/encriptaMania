@@ -2,8 +2,6 @@
 //Code from this website: https://hackernoon.com/steganography-how-to-hide-text-in-images-using-javascript
 //Git Repo: https://github.com/Blaumaus/steganography
 
-import {dci_binario} from './c_binario.js';
-
 function ci_esteganografia(canvas, ctx, text) {
   //Datos de la imagen
   const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);

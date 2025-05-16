@@ -386,9 +386,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
-                        // Ajustar el tamaño del canvas a la imagen
-                        canvas.width = img.width;
-                        canvas.height = img.height;
+                        // Verificar si la imagen supera los 1500 px en ancho o alto
+                        const maxSize = 1100;
+                        let escala = 1; // Sin escala por defecto
+
+                        if (img.width > maxSize || img.height > maxSize) {
+                            // Calcular el factor de reducción manteniendo la proporción
+                            escala = maxSize / Math.max(img.width, img.height);
+                        }
+
+                        canvas.width = img.width * escala;
+                        canvas.height = img.height * escala;
 
                         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw image
