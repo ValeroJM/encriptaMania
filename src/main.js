@@ -110,7 +110,7 @@ function encriptarODesencriptar(accion){
     }else if(tipoCifrado === '19'){
         resultado = accion === 'encriptar' ? ci_playfairMurcielago(mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
     }else if(tipoCifrado === '20'){
-        resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_esteganografia(canvas, ctx);
+        resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_esteganografia(canvas, ctx, mensajeOriginal);
     }
     return resultado;
 }
@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const img = new Image();
                     img.onload = () => {
                         // Verificar si la imagen supera los 1500 px en ancho o alto
-                        const maxSize = 1100;
+                        const maxSize = 720;
                         let escala = 1; // Sin escala por defecto
 
                         if (img.width > maxSize || img.height > maxSize) {

@@ -2,11 +2,24 @@
 //Code from this website: https://hackernoon.com/steganography-how-to-hide-text-in-images-using-javascript
 //Git Repo: https://github.com/Blaumaus/steganography
 
+import {generaHashRapido} from './t_hash.js';
+import {ci_hexadecimal} from './c_hexadecimal.js';
+import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
+
 function ci_esteganografia(canvas, ctx, text) {
   //Datos de la imagen
   const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imgData.data;
   let binaryText = "";
+
+  if(text[0] === '#' && text.lastIndexOf('#')){
+      let clave = text.substring(1, text.lastIndexOf("#"));
+      let claveHexa = ci_hexadecimal(clave);
+      let claveHashTotal = generaHashRapido(claveHexa) + generaHashRapido(clave);
+
+      text = text.substring(text.lastIndexOf('#') + 1);
+      text = ci_vigenere(text, claveHashTotal);
+  }
 
   // Convert each character to binary and add a delimiter
   for (let i = 0; i < text.length; i++) {
@@ -32,11 +45,18 @@ function ci_esteganografia(canvas, ctx, text) {
   return canvas.toDataURL();
 }
 
-function dci_esteganografia(canvas, ctx) {
+function dci_esteganografia(canvas, ctx, text) {
   const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imgData.data;
   let binaryText = "";
   let decodedText = "";
+  let claveHashTotal = "";
+
+  if(text[0] === '#' && text.lastIndexOf('#')){
+      let clave = text.substring(1, text.lastIndexOf("#"));
+      let claveHexa = ci_hexadecimal(clave);
+      claveHashTotal = generaHashRapido(claveHexa) + generaHashRapido(clave);
+  }
 
   // Extract binary data from the image
   for (let i = 0; i < data.length; i += 4) {
@@ -51,7 +71,8 @@ function dci_esteganografia(canvas, ctx) {
     if (charCode === 0) break; // Stop if we hit a null character
     decodedText += String.fromCharCode(charCode);
   }
-
+  
+  decodedText = claveHashTotal === "" ? decodedText : dci_vigenere(decodedText, claveHashTotal);
   return decodedText;
 }
 
