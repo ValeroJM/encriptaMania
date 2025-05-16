@@ -16,6 +16,7 @@ const transposicion5DigStr = ['12345','12354','12435','12453','12534','12543','1
 
 const abcedarioAtbash = "zyxwvutsrqpoñnmlkjihgfedçcbaZYXWVUTSRQPOÑNMLKJIHGFEDÇCBAÜÖÄüöïëäÚÓÍÉÁúóíéá~}|{`_^]\\[@?¿>=<;: /.-,+*\n)('&%\t$#\"¡!9876543210";
 const abcedarioLeetSpeak = "∆ь¢d₤ƒghi♪klмทñØ¶Ω®§†บ✓พ×ЧzçДß©D£FGнI√KLMИÑΘ₱QЯSтµVЩЖ¥ZÇ@éíөú^€ÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'()\n*+,-./ :;<=>¿?@[\\]^_`{|}~012∈456789";
+const abcROT13 = "nñopqrstuvwxyzçabcdefghijklmNÑOPQRSTUVWXYZÇABCDEFGHIJKLMáéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'()\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789"
 
 const abcedarioList = [' ','a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z','ç','A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ç'];
 const abcedarioDecimalList = ['00','10','11','12','13','20','21','22','23','30','31','32','33','34','35','36','37','40','41','42','43','44','45','50','51','52','53','54','55','56','14','15','16','17','24','25','26','27','38','39','301','302','303','304','46','47','48','49','401','402','57','58','59','501','502','503','504'];
@@ -47,4 +48,4 @@ const abecedarioPlayFairMurcielagoList = [['M','u','R','C','i','é','L','a','g',
                                          ['?','@','[','\\',']','^','_','`','{','|','}'],
                                          ['~','0','1','2','3','4','5','6','7','8','9']];
 
-export {abcedario, transposicion5DigStr, abcedarioAtbash, abcedarioLeetSpeak, abcedarioList, abcedarioDecimalList, abcedarioSignoMorseList, codigoMorseList, abecedarioBifidoList, abecedarioPlayFairMurcielagoList};
+export {abcedario, transposicion5DigStr, abcedarioAtbash, abcedarioLeetSpeak, abcedarioList, abcedarioDecimalList, abcedarioSignoMorseList, codigoMorseList, abecedarioBifidoList, abecedarioPlayFairMurcielagoList, abcROT13};

@@ -15,6 +15,7 @@ import {ci_octal, dci_octal} from './c_octal.js';
 import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
 import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago} from './c_playfair.js';
 import {ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
+import {ci_rot13, dci_rot13} from './c_rot13.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -111,6 +112,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_playfairMurcielago(mensajeOriginal) : dci_playfairMurcielago(mensajeOriginal);
     }else if(tipoCifrado === '20'){
         resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_esteganografia(canvas, ctx, mensajeOriginal);
+    }else if(tipoCifrado === '21'){
+        resultado = accion === 'encriptar' ? ci_rot13(mensajeOriginal) : dci_rot13(mensajeOriginal);
     }
     return resultado;
 }
