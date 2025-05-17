@@ -44,6 +44,7 @@
                   <option value="19">Cifrado Playfair Murciélago</option>
                   <option value="20">Estegranografía</option>
                   <option value="21">ROT13</option>
+                  <option value="22">Scytale</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -79,6 +80,14 @@
                 <input type="file" class="form-control-file" id="imagenEsteganografia">
                 <div class="invalid-feedback">
                   Por favor, selecciones una imagen.
+                </div>
+              </div>
+              <!--Campo Clave Scytale-->
+              <div class="col-12" class="form-group" id="passwordScytaleGrupoCampo" style="display: none;">
+                <label for="scytalePassword">Clave Numérica:</label>
+                <input type="number" class="form-control" id="scytalePassword" placeholder="Escriba su clave numérica (del 1 al 7)">
+                <div class="invalid-feedback">
+                  Por favor, escriba un valor numérico del 1 al 7.
                 </div>
               </div>
               <div class="col-12">
