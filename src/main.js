@@ -17,6 +17,8 @@ import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago
 import {ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
 import {ci_rot13, dci_rot13} from './c_rot13.js';
 import {ci_scytale, dci_scytale} from './c_scytale.js';
+import {ci_des, dci_des} from './c_des.js';
+import {ci_aes, dci_aes} from './c_aes.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -27,6 +29,8 @@ function encriptarAccBtn(){
         guardarSecuenciaDeTransposicion();
         guardarPasswordVigenere();
         guardarClaveScytale();
+        guardarPasswordDES();
+        guardarPasswordAES();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoEncriptado = encriptarODesencriptar('encriptar');
@@ -49,6 +53,8 @@ function desencriptarAccBtn(){
         guardarSecuenciaDeTransposicion();
         guardarPasswordVigenere();
         guardarClaveScytale();
+        guardarPasswordDES();
+        guardarPasswordAES();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
@@ -74,6 +80,8 @@ function encriptarODesencriptar(accion){
     let secuenciaTransposicion = parseInt(localStorage.getItem("transposicionSecuencia"));
     let passwordVigenere = localStorage.getItem("vigenerePassword");
     let claveScytaleOriginal = parseInt(localStorage.getItem("scytalePassword"));
+    let passwordDES = localStorage.getItem("desPassword");
+    let passwordAES = localStorage.getItem("aesPassword");
     let resultado;
     
     if (tipoCifrado === '1'){
@@ -120,6 +128,10 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_rot13(mensajeOriginal) : dci_rot13(mensajeOriginal);
     }else if(tipoCifrado === '22'){
         resultado = accion === 'encriptar' ? ci_scytale(mensajeOriginal, claveScytaleOriginal) : dci_scytale(mensajeOriginal, claveScytaleOriginal);
+    }else if(tipoCifrado === '23'){
+        resultado = accion === 'encriptar' ? ci_des(mensajeOriginal, passwordDES) : dci_des(mensajeOriginal, passwordDES);
+    }else if(tipoCifrado === '24'){
+        resultado = accion === 'encriptar' ? ci_aes(mensajeOriginal, passwordAES) : dci_aes(mensajeOriginal, passwordAES);
     }
     return resultado;
 }
@@ -153,6 +165,16 @@ function guardarPasswordVigenere(){
 function guardarClaveScytale(){
     let claveScytale = document.getElementById("scytalePassword").value;
     localStorage.setItem("scytalePassword", claveScytale);
+}
+
+function guardarPasswordDES(){
+    let passwordDES = document.getElementById("desPassword").value;
+    localStorage.setItem("desPassword", passwordDES);
+}
+
+function guardarPasswordAES(){
+    let passwordAES = document.getElementById("aesPassword").value;
+    localStorage.setItem("aesPassword", passwordAES);
 }
 
 function msjEncriptado(msjEncriptadoStr){
@@ -268,6 +290,8 @@ function limpiarYRecargar() {
     localStorage.removeItem("transposicionSecuencia");
     localStorage.removeItem("vigenerePassword");
     localStorage.removeItem("scytalePassword");
+    localStorage.removeItem("desPassword");
+    localStorage.removeItem("aesPassword");
         
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
@@ -349,12 +373,16 @@ function validateForm() {
     let inputTransposicion = form.querySelector('#transposicionSecuencia');
     let inputVigenere = form.querySelector('#vigenerePassword');
     let inputScytale = form.querySelector('#scytalePassword');
+    let inputDES = form.querySelector('#desPassword');
+    let inputAES = form.querySelector('#aesPassword');
     if (!form.checkValidity() 
         || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) 
         || (inputTransposicion.offsetParent !== null && ((String(inputTransposicion.value).length < 5 || String(inputTransposicion.value).length >= 6) 
         || !transposicion5DigStr.includes(String(inputTransposicion.value)))) 
         || (inputVigenere.offsetParent !== null && inputVigenere.value.trim().length === 0)
         || (inputScytale.offsetParent !== null && (inputScytale.value < 1 || inputScytale.value > 7))
+        || (inputDES.offsetParent !== null && inputDES.value.trim().length === 0 && inputDES.value.trim().length !== 8)
+        || (inputAES.offsetParent !== null && inputAES.value.trim().length === 0 && !(inputAES.value.trim().length === 16 || inputAES.value.trim().length === 24 || inputAES.value.trim().length === 32))
         ) {
         form.classList.add('was-validated');
         return false;
@@ -373,12 +401,16 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputVigenere = form.querySelector('#vigenerePassword');
         let inputImagenEsteganografia = form.querySelector('#imagenEsteganografia');
         let inputScytale = form.querySelector('#scytalePassword');
+        let inputDES = form.querySelector('#desPassword');
+        let inputAES = form.querySelector('#aesPassword');
         let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
         let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
         let passwordVigenereGrupoCampo = document.getElementById('passwordVigenereGrupoCampo');
         let imagenEsteganografiaGroupCampo = document.getElementById('imagenEsteganografiaGroupCampo');
         let canvasPreview = document.getElementById('canvasPreview');
         let passwordScytaleGrupoCampo = document.getElementById('passwordScytaleGrupoCampo');
+        let passwordDESGrupoCampo = document.getElementById('passwordDESGrupoCampo');
+        let passwordAESGrupoCampo = document.getElementById('passwordAESGrupoCampo');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
@@ -434,6 +466,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetForm();
                 passwordScytaleGrupoCampo.style.display = 'block';
                 inputScytale.setAttribute('required', 'required');
+            }else if(encryptionType === '23'){
+                resetForm();
+                passwordDESGrupoCampo.style.display = 'block';
+                inputDES.setAttribute('required', 'required');
+            }else if(encryptionType === '24'){
+                resetForm();
+                passwordAESGrupoCampo.style.display = 'block';
+                inputAES.setAttribute('required', 'required');
             }else {
                 resetForm();
             }
@@ -446,12 +486,16 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordVigenereGrupoCampo.style.display = 'none';
             imagenEsteganografiaGroupCampo.style.display = 'none';
             passwordScytaleGrupoCampo.style.display = 'none';
+            passwordDESGrupoCampo.style.display = 'none';
+            passwordAESGrupoCampo.style.display = 'none';
             inputCesar.removeAttribute('required');
             inputTransposicion.removeAttribute('required');
             inputVigenere.removeAttribute('required');
             inputImagenEsteganografia.removeAttribute('required');
             canvasPreview.style.display = 'none';
             inputScytale.removeAttribute('required');
+            inputDES.removeAttribute('required');
+            inputAES.removeAttribute('required');
         }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
@@ -503,6 +547,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 inputScytale.classList.add('is-valid');
             }
         });
+
+        // Verificar cada vez que se cambia el valor del campo de texto inputDES
+        inputDES.addEventListener('input', function() {
+            let passwordDES = inputDES.value;
+            if (passwordDES.trim().length === 0 || passwordDES.trim().length !== 8) {
+                inputDES.classList.add('is-invalid');
+                inputDES.classList.remove('is-valid');
+            } else {
+                inputDES.classList.remove('is-invalid');
+                inputDES.classList.add('is-valid');
+            }
+        });
+
+        // Verificar cada vez que se cambia el valor del campo de texto inputAES
+        inputAES.addEventListener('input', function() {
+            let passwordAES = inputAES.value;
+            if (passwordAES.trim().length === 0 || !(passwordAES.trim().length === 16 || passwordAES.trim().length === 24 || passwordAES.trim().length === 32)) {
+                inputAES.classList.add('is-invalid');
+                inputAES.classList.remove('is-valid');
+            } else {
+                inputAES.classList.remove('is-invalid');
+                inputAES.classList.add('is-valid');
+            }
+        });
         
         // Validación personalizada antes de la validación de Bootstrap
         form.addEventListener('submit', function(event) {
@@ -538,6 +606,18 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Verificar la visibilidad y la validez del inputScytale
             if (inputScytale.offsetParent !== null && (inputScytale.value < 1 || inputScytale.value > 7)) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Verificar la visibilidad y la validez del inputDES
+            if (inputDES.offsetParent !== null && inputDES.value.trim().length === 0 && inputDES.value.trim().length !== 8) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Verificar la visibilidad y la validez del inputAES
+            if (inputAES.offsetParent !== null && inputAES.value.trim().length === 0 && !(inputAES.value.trim().length === 16 || inputAES.value.trim().length === 24 || inputAES.value.trim().length === 32)) {
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -604,6 +684,24 @@ window.onload = function() {
         document.getElementById('passwordScytaleGrupoCampo').style.display = 'block';
         // Este otro comando recupera el valor del localStorage y lo pone en el input
         document.getElementById("scytalePassword").value = savedClaveScytale;
+    }
+
+    // Recuperar el valor de la claveDES
+    let savedPasswordDES = localStorage.getItem("desPassword");
+    if (savedPasswordDES){
+        // Este comando muestra el campo passwordDESGrupoCampo
+        document.getElementById('passwordDESGrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el input
+        document.getElementById("desPassword").value = savedPasswordDES;
+    }
+    
+    // Recuperar el valor de la claveAES
+    let savedPasswordAES = localStorage.getItem("aesPassword");
+    if (savedPasswordAES){
+        // Este comando muestra el campo passwordAESGrupoCampo
+        document.getElementById('passwordAESGrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el input
+        document.getElementById("aesPassword").value = savedPasswordAES;
     }
 };
 

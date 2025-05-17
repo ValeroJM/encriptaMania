@@ -45,6 +45,8 @@
                   <option value="20">Estegranografía</option>
                   <option value="21">ROT13</option>
                   <option value="22">Scytale</option>
+                  <option value="23">Cifrado DES</option>
+                  <option value="24">Cifrado AES</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -88,6 +90,22 @@
                 <input type="number" class="form-control" id="scytalePassword" placeholder="Escriba su clave numérica (del 1 al 7)">
                 <div class="invalid-feedback">
                   Por favor, escriba un valor numérico del 1 al 7.
+                </div>
+              </div>
+              <!--Campo Password DES-->
+              <div class="col-12" class="form-group" id="passwordDESGrupoCampo" style="display: none;">
+                <label for="desPassword">Password:</label>
+                <input type="text" class="form-control" id="desPassword" placeholder="Escriba su password de 8 caracteres">
+                <div class="invalid-feedback">
+                  Por favor, escriba un password de 8 caracteres alfanuméricos.
+                </div>
+              </div>
+              <!--Campo Password AES-->
+              <div class="col-12" class="form-group" id="passwordAESGrupoCampo" style="display: none;">
+                <label for="aesPassword">Password:</label>
+                <input type="text" class="form-control" id="aesPassword" placeholder="Escriba su password de 16, 24 o 32 caracteres">
+                <div class="invalid-feedback">
+                  Por favor, escriba un password de 16, 24 o 32 caracteres alfanuméricos.
                 </div>
               </div>
               <div class="col-12">
@@ -187,8 +205,8 @@
           </div>
         </footer>
       </div>
-
+      
       <script src="src/main.js" type="module"></script>
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     </body>
 </html>
