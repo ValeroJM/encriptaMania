@@ -16,6 +16,7 @@ import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
 import {ci_playfair, dci_playfair, ci_playfairMurcielago, dci_playfairMurcielago} from './c_playfair.js';
 import {ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
 import {ci_rot13, dci_rot13} from './c_rot13.js';
+import {ci_scytale, dci_scytale} from './c_scytale.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -25,6 +26,7 @@ function encriptarAccBtn(){
         guardarClaveCesar();
         guardarSecuenciaDeTransposicion();
         guardarPasswordVigenere();
+        guardarClaveScytale();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoEncriptado = encriptarODesencriptar('encriptar');
@@ -46,6 +48,7 @@ function desencriptarAccBtn(){
         guardarClaveCesar();
         guardarSecuenciaDeTransposicion();
         guardarPasswordVigenere();
+        guardarClaveScytale();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
@@ -70,6 +73,7 @@ function encriptarODesencriptar(accion){
     let claveCesarOriginal = parseInt(localStorage.getItem("cesarPassword"));
     let secuenciaTransposicion = parseInt(localStorage.getItem("transposicionSecuencia"));
     let passwordVigenere = localStorage.getItem("vigenerePassword");
+    let claveScytaleOriginal = parseInt(localStorage.getItem("scytalePassword"));
     let resultado;
     
     if (tipoCifrado === '1'){
@@ -114,6 +118,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_esteganografia(canvas, ctx, mensajeOriginal) : dci_esteganografia(canvas, ctx, mensajeOriginal);
     }else if(tipoCifrado === '21'){
         resultado = accion === 'encriptar' ? ci_rot13(mensajeOriginal) : dci_rot13(mensajeOriginal);
+    }else if(tipoCifrado === '22'){
+        resultado = accion === 'encriptar' ? ci_scytale(mensajeOriginal, claveScytaleOriginal) : dci_scytale(mensajeOriginal, claveScytaleOriginal);
     }
     return resultado;
 }
@@ -142,6 +148,11 @@ function guardarSecuenciaDeTransposicion(){
 function guardarPasswordVigenere(){
     let passwordVigenere = document.getElementById("vigenerePassword").value;
     localStorage.setItem("vigenerePassword", passwordVigenere);
+}
+
+function guardarClaveScytale(){
+    let claveScytale = document.getElementById("scytalePassword").value;
+    localStorage.setItem("scytalePassword", claveScytale);
 }
 
 function msjEncriptado(msjEncriptadoStr){
@@ -256,6 +267,7 @@ function limpiarYRecargar() {
     localStorage.removeItem("cesarPassword");
     localStorage.removeItem("transposicionSecuencia");
     localStorage.removeItem("vigenerePassword");
+    localStorage.removeItem("scytalePassword");
         
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
@@ -336,7 +348,14 @@ function validateForm() {
     let inputCesar = form.querySelector('#cesarPassword');
     let inputTransposicion = form.querySelector('#transposicionSecuencia');
     let inputVigenere = form.querySelector('#vigenerePassword');
-    if (!form.checkValidity() || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) || (inputTransposicion.offsetParent !== null && ((String(inputTransposicion.value).length < 5 || String(inputTransposicion.value).length >= 6) || !transposicion5DigStr.includes(String(inputTransposicion.value)))) || (inputVigenere.offsetParent !== null && inputVigenere.value.trim().length === 0)) {
+    let inputScytale = form.querySelector('#scytalePassword');
+    if (!form.checkValidity() 
+        || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) 
+        || (inputTransposicion.offsetParent !== null && ((String(inputTransposicion.value).length < 5 || String(inputTransposicion.value).length >= 6) 
+        || !transposicion5DigStr.includes(String(inputTransposicion.value)))) 
+        || (inputVigenere.offsetParent !== null && inputVigenere.value.trim().length === 0)
+        || (inputScytale.offsetParent !== null && (inputScytale.value < 1 || inputScytale.value > 7))
+        ) {
         form.classList.add('was-validated');
         return false;
     }
@@ -353,11 +372,13 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputTransposicion = form.querySelector('#transposicionSecuencia');
         let inputVigenere = form.querySelector('#vigenerePassword');
         let inputImagenEsteganografia = form.querySelector('#imagenEsteganografia');
+        let inputScytale = form.querySelector('#scytalePassword');
         let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
         let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
         let passwordVigenereGrupoCampo = document.getElementById('passwordVigenereGrupoCampo');
         let imagenEsteganografiaGroupCampo = document.getElementById('imagenEsteganografiaGroupCampo');
         let canvasPreview = document.getElementById('canvasPreview');
+        let passwordScytaleGrupoCampo = document.getElementById('passwordScytaleGrupoCampo');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
@@ -409,6 +430,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     reader.readAsDataURL(file);
                     }
                 });
+            }else if(encryptionType === '22'){
+                resetForm();
+                passwordScytaleGrupoCampo.style.display = 'block';
+                inputScytale.setAttribute('required', 'required');
             }else {
                 resetForm();
             }
@@ -420,11 +445,13 @@ document.addEventListener('DOMContentLoaded', function() {
             transposicionGrupoCampo.style.display = 'none';
             passwordVigenereGrupoCampo.style.display = 'none';
             imagenEsteganografiaGroupCampo.style.display = 'none';
+            passwordScytaleGrupoCampo.style.display = 'none';
             inputCesar.removeAttribute('required');
             inputTransposicion.removeAttribute('required');
             inputVigenere.removeAttribute('required');
             inputImagenEsteganografia.removeAttribute('required');
             canvasPreview.style.display = 'none';
+            inputScytale.removeAttribute('required');
         }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
@@ -464,6 +491,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 inputVigenere.classList.add('is-valid');
             }
         });
+
+        // Verificar cada vez que se cambia el valor del campo de texto inputScytale
+        inputScytale.addEventListener('input', function() {
+            let claveScytale = inputScytale.value;
+            if (claveScytale < 1 || claveScytale > 7) {
+                inputScytale.classList.add('is-invalid');
+                inputScytale.classList.remove('is-valid');
+            } else {
+                inputScytale.classList.remove('is-invalid');
+                inputScytale.classList.add('is-valid');
+            }
+        });
         
         // Validación personalizada antes de la validación de Bootstrap
         form.addEventListener('submit', function(event) {
@@ -497,6 +536,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.stopPropagation();
             }
             
+            // Verificar la visibilidad y la validez del inputScytale
+            if (inputScytale.offsetParent !== null && (inputScytale.value < 1 || inputScytale.value > 7)) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
             form.classList.add('was-validated');
         }, false);
     });
@@ -550,6 +595,15 @@ window.onload = function() {
         document.getElementById('passwordVigenereGrupoCampo').style.display = 'block';
         // Este otro comando recupera el valor del localStorage y lo pone en el input
         document.getElementById("vigenerePassword").value = savedPasswordVigenere;
+    }
+
+    // Recuperar el valor de la claveScytale
+    let savedClaveScytale = localStorage.getItem("scytalePassword");
+    if (savedClaveScytale){
+        // Este comando muestra el campo passwordScytaleCrupoCampo
+        document.getElementById('passwordScytaleGrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el input
+        document.getElementById("scytalePassword").value = savedClaveScytale;
     }
 };
 

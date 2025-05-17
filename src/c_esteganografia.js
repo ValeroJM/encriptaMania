@@ -6,6 +6,7 @@ import {generaHashRapido} from './t_hash.js';
 import {ci_hexadecimal} from './c_hexadecimal.js';
 import {ci_vigenere, dci_vigenere} from './c_vigenere.js';
 
+//Cifrado Esteganografía
 function ci_esteganografia(canvas, ctx, text) {
   //Datos de la imagen
   const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -45,6 +46,7 @@ function ci_esteganografia(canvas, ctx, text) {
   return canvas.toDataURL();
 }
 
+//Descifrado Esteganografía
 function dci_esteganografia(canvas, ctx, text) {
   const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imgData.data;
