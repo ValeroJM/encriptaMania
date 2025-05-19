@@ -361,7 +361,7 @@ function guardarImagenBtn(){
     const imagen = document.getElementById('nuevaImagen');
     const enlace = document.createElement('a');
     enlace.href = imagen.src;
-    enlace.download = 'em_download.png'; // Nombre del archivo al descargar
+    enlace.download = 'em_download.jpg'; // Nombre del archivo al descargar
     document.body.appendChild(enlace);
     enlace.click();
     document.body.removeChild(enlace);
