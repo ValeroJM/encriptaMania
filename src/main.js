@@ -146,7 +146,6 @@ function guardarSeleccionCifrado(){
     localStorage.setItem("seleccionCifrado", cifradoSelect);
 }
 
-
 function guardarClaveCesar(){
     let claveCesar = document.getElementById("cesarPassword").value;
     localStorage.setItem("cesarPassword", claveCesar);
