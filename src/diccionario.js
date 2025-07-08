@@ -48,4 +48,15 @@ const abecedarioPlayFairMurcielagoList = [['M','u','R','C','i','é','L','a','g',
                                          ['?','@','[','\\',']','^','_','`','{','|','}'],
                                          ['~','0','1','2','3','4','5','6','7','8','9']];
 
+const abecedarioGronsfeld = [["BÄ@<42.Q(?ü^+zS]cj!yauÇPpi9Ü)w}8~ñK6ä0 Lï'>YMó$&d_J\nlV*,7ÉReho;5XFqbv3/O\\t\tÑ:xsúNÁECg¿=míZW`ëÖ¡%UGöéA|HçÍáf-ÓI\"Úk[DnT#1{r"],
+                             ["%nÜFXuL5q:$!wicbÓ1ë.}ÖözBWZ68üé<GloU49H]ÚÍ32\t\\`CóeaÄ=sS¡ D-RIÁv#pYJ,QÑáP{;_jrçtf\"M+T'ñE>g?ymV7*@~^NäK)ï(|Ç\núAxh/É¿kdí[0&O"],
+                             ["hv(W_z+Ñ=ä|p^FHU.oZ{9dtw!1c¡kyÇÓÄ\\8&\"RÖQe- 3a$E/ÉY~)i6ëJÁ`Gx\tü;\nfmg%A'5qT<s[L7u0úöMlnCI4:#Nó]2@b¿rOïjV>PÍíD*B,Ké?áXÚ}ÜSçñ"],
+                             ["(fBÓáPÍ#Éóq.h?KNéJ]Y!Ú|,Ü;5{ZismM9pen26jO¿*_LwbTñx><Çöäz`\nç3^4Wí~\"ü$+a=l[úëÖ1d¡I c@v:SV}8ÑkRÄ&A7%XÁg/tE\tr'\\GFï0QU)D-uoyHC"],
+                             ["Nï:H7áSóVJXfÓTÖbíEWúkÇ/Qv)+l$PU&¿Bd3xjÉséto5<ä]@¡n#{wqÁ~g[r*\\Ú=\nü4^Aa|CDç61R2ZÑc\t\"MYKÜ8ëñ9y`I?m .'u>pGe};%öiÍ0z!-F(,LÄOh_"],
+                             ["n~.OÇïv^J)Rh}9r<tH_/(D5QMÁ,`I4eN ZWÉ'[PAÓ&V\nmBsyó1?cTULÑë0>uñ8Cgif@á\\-7]ödY\"píSKX\tú2#bä6Ú3=¡Í:%oF*üçÖ;ÜGé!zÄqxj|kw+a$¿{El"],
+                             ["Yúë{,Ú$Gï4@PDd<.HNMZi6?Ätyéc7¡3\tfX~¿A8>-üÇÉ\\b0FIJ'&s`V[u\nxí*9W;pB%RT çñÑOe)5}qjlSg!#Ó^öÖrQÁäa+ávm1Kowh/nCÜUÍ2=zk|:Ló\"(_]E"],
+                             ["CNnA';X)Z=Bñ71\\ïD{h0ÖG-ÚÇx%WÑÄIaúöó(F83T¡j_<çu2?Uüqg>\n\"J[HÜ.^Y~V6!Kfl o\tp#betEO`]PÍv+$Lr*i¿ëá,äÓmÁSRyQsé/&9@:wdÉck}4|5zMí"],
+                             ["y-íKe¿`oung4}*f,9H)=@'30\\_mC+Up>h7FdÇÍJzEÖ:éYOöäñb8Mq^\"áDAj%$r[.k~;ÉütsÜú Qa¡XwçïIÓRÁ\nZó!P<iL/Ú?VÑB\t5]xNcG1S{&|Ä2WëT6#(lv"],
+                             ["P6=ëZ+:_.Ñ8h,QI4{&vU TÍíÇ%#ylz-e;\t*FÁdGw'VäWÓOJSnö1Úñ2çqo^\n¡A\"|$uKÄgÉ}m3p!>Bé)Ökr@/(Y¿t05aNLH9Ef]?icX\\ïMÜüóDRúx<[sb`j7~áC"]];
+
 export {abcedario, transposicion5DigStr, abcedarioAtbash, abcedarioLeetSpeak, abcedarioList, abcedarioDecimalList, abcedarioSignoMorseList, codigoMorseList, abecedarioBifidoList, abecedarioPlayFairMurcielagoList, abcROT13};
