@@ -47,6 +47,7 @@
                   <option value="22">Scytale</option>
                   <option value="23">Cifrado DES</option>
                   <option value="24">Cifrado AES</option>
+                  <option value="25">Cifrado Gronsfeld</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -108,6 +109,14 @@
                   Por favor, escriba un password de 16, 24 o 32 caracteres alfanuméricos.
                 </div>
               </div>
+              <!--Campo Clave Gronsfeld-->
+              <div class="col-12" class="form-group" id="passwordGronsfeldGrupoCampo" style="display: none;">
+                <label for="gronsfeldPassword">Clave Numérica:</label>
+                <input type="number" class="form-control" id="gronsfeldPassword" placeholder="Escriba su clave numérica">
+                <div class="invalid-feedback">
+                  Por favor, escriba un valor numérico Ej.:234568.
+                </div>
+              </div>
               <div class="col-12">
                 <label for="mensajeTextarea">Mensaje a cifrar o descifrar:</label>
                 <textarea class="form-control" id="mensajeTextarea" rows="3" required></textarea>
@@ -164,7 +173,7 @@
             <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
               <img src="./src/img/icons8-llave.svg" class="rounded mx-auto d-block" alt="Encripta Mania Logo" width="35" height="35">
             </a>
-            <p class="text-muted">Encripta Manía V.3.0.0<br>© 2025</p>
+            <p class="text-muted">Encripta Manía V.3.1.0<br>© 2025</p>
           </div>
       
           <div class="col mb-3">
