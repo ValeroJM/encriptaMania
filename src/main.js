@@ -19,6 +19,7 @@ import {ci_rot13, dci_rot13} from './c_rot13.js';
 import {ci_scytale, dci_scytale} from './c_scytale.js';
 import {ci_des, dci_des} from './c_des.js';
 import {ci_aes, dci_aes} from './c_aes.js';
+import {ci_gronsfeld, dci_gronsfeld} from './c_gronsfeld.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -31,6 +32,7 @@ function encriptarAccBtn(){
         guardarClaveScytale();
         guardarPasswordDES();
         guardarPasswordAES();
+        guardarClaveGronsfeld();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoEncriptado = encriptarODesencriptar('encriptar');
@@ -55,6 +57,7 @@ function desencriptarAccBtn(){
         guardarClaveScytale();
         guardarPasswordDES();
         guardarPasswordAES();
+        guardarClaveGronsfeld();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
@@ -82,6 +85,7 @@ function encriptarODesencriptar(accion){
     let claveScytaleOriginal = parseInt(localStorage.getItem("scytalePassword"));
     let passwordDES = localStorage.getItem("desPassword");
     let passwordAES = localStorage.getItem("aesPassword");
+    let claveGronsfeldOriginal = parseInt(localStorage.getItem("gronsfeldPassword"));
     let resultado;
     
     if (tipoCifrado === '1'){
@@ -132,6 +136,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_des(mensajeOriginal, passwordDES) : dci_des(mensajeOriginal, passwordDES);
     }else if(tipoCifrado === '24'){
         resultado = accion === 'encriptar' ? ci_aes(mensajeOriginal, passwordAES) : dci_aes(mensajeOriginal, passwordAES);
+    }else if(tipoCifrado === '25'){
+        resultado = accion === 'encriptar' ? ci_gronsfeld(mensajeOriginal, claveGronsfeldOriginal) : dci_gronsfeld(mensajeOriginal, claveGronsfeldOriginal);
     }
     return resultado;
 }
@@ -174,6 +180,11 @@ function guardarPasswordDES(){
 function guardarPasswordAES(){
     let passwordAES = document.getElementById("aesPassword").value;
     localStorage.setItem("aesPassword", passwordAES);
+}
+
+function guardarClaveGronsfeld(){
+    let claveGronsfeld = document.getElementById("gronsfeldPassword").value;
+    localStorage.setItem("gronsfeldPassword", claveGronsfeld);
 }
 
 function msjEncriptado(msjEncriptadoStr){
@@ -291,6 +302,7 @@ function limpiarYRecargar() {
     localStorage.removeItem("scytalePassword");
     localStorage.removeItem("desPassword");
     localStorage.removeItem("aesPassword");
+    localStorage.removeItem("gronsfeldPassword");
         
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
@@ -402,6 +414,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputScytale = form.querySelector('#scytalePassword');
         let inputDES = form.querySelector('#desPassword');
         let inputAES = form.querySelector('#aesPassword');
+        let inputGronsfeld = form.querySelector('#gronsfeldPassword');
         let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
         let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
         let passwordVigenereGrupoCampo = document.getElementById('passwordVigenereGrupoCampo');
@@ -410,6 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let passwordScytaleGrupoCampo = document.getElementById('passwordScytaleGrupoCampo');
         let passwordDESGrupoCampo = document.getElementById('passwordDESGrupoCampo');
         let passwordAESGrupoCampo = document.getElementById('passwordAESGrupoCampo');
+        let passwordGronsfeldGrupoCampo = document.getElementById('passwordGronsfeldGrupoCampo');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
@@ -473,6 +487,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetForm();
                 passwordAESGrupoCampo.style.display = 'block';
                 inputAES.setAttribute('required', 'required');
+            }else if(encryptionType === '25'){
+                resetForm();
+                passwordGronsfeldGrupoCampo.style.display = 'block';
+                inputGronsfeld.setAttribute('required', 'required');
             }else {
                 resetForm();
             }
@@ -487,6 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordScytaleGrupoCampo.style.display = 'none';
             passwordDESGrupoCampo.style.display = 'none';
             passwordAESGrupoCampo.style.display = 'none';
+            passwordGronsfeldGrupoCampo.style.display = 'none';
             inputCesar.removeAttribute('required');
             inputTransposicion.removeAttribute('required');
             inputVigenere.removeAttribute('required');
@@ -495,6 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inputScytale.removeAttribute('required');
             inputDES.removeAttribute('required');
             inputAES.removeAttribute('required');
+            inputGronsfeld.removeAttribute('required');
         }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
@@ -701,6 +721,15 @@ window.onload = function() {
         document.getElementById('passwordAESGrupoCampo').style.display = 'block';
         // Este otro comando recupera el valor del localStorage y lo pone en el input
         document.getElementById("aesPassword").value = savedPasswordAES;
+    }
+
+    // Recuperar el valor de la claveScytale
+    let savedClaveGronsfeld = localStorage.getItem("gronsfeldPassword");
+    if (savedClaveGronsfeld){
+        // Este comando muestra el campo passwordScytaleCrupoCampo
+        document.getElementById('passwordGronsfeldGrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el input
+        document.getElementById("gronsfeldPassword").value = savedClaveGronsfeld;
     }
 };
 
