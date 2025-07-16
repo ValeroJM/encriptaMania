@@ -18,7 +18,7 @@ import {ci_esteganografia, dci_esteganografia} from './c_esteganografia.js';
 import {ci_rot13, dci_rot13} from './c_rot13.js';
 import {ci_scytale, dci_scytale} from './c_scytale.js';
 import {ci_des, dci_des} from './c_des.js';
-import {ci_aes, dci_aes} from './c_aes.js';
+import {ci_aes, dci_aes, ci_aes32Soft, dci_aes32soft} from './c_aes.js';
 import {ci_gronsfeld, dci_gronsfeld} from './c_gronsfeld.js';
 
 function encriptarAccBtn(){
@@ -33,6 +33,7 @@ function encriptarAccBtn(){
         guardarPasswordDES();
         guardarPasswordAES();
         guardarClaveGronsfeld();
+        guardarPasswordAESSoft32();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoEncriptado = encriptarODesencriptar('encriptar');
@@ -58,6 +59,7 @@ function desencriptarAccBtn(){
         guardarPasswordDES();
         guardarPasswordAES();
         guardarClaveGronsfeld();
+        guardarPasswordAESSoft32();
 
         //Llama la función de encriptarODesencriptar y lo guarda en el localStorage
         let resultadoDesencriptado = encriptarODesencriptar('desencriptar');
@@ -86,6 +88,7 @@ function encriptarODesencriptar(accion){
     let passwordDES = localStorage.getItem("desPassword");
     let passwordAES = localStorage.getItem("aesPassword");
     let claveGronsfeldOriginal = parseInt(localStorage.getItem("gronsfeldPassword"));
+    let passwordAESSoft32 = localStorage.getItem("aesSoft32Password");
     let resultado;
     
     if (tipoCifrado === '1'){
@@ -138,6 +141,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_aes(mensajeOriginal, passwordAES) : dci_aes(mensajeOriginal, passwordAES);
     }else if(tipoCifrado === '25'){
         resultado = accion === 'encriptar' ? ci_gronsfeld(mensajeOriginal, claveGronsfeldOriginal) : dci_gronsfeld(mensajeOriginal, claveGronsfeldOriginal);
+    }else if(tipoCifrado === '26'){
+        resultado = accion === 'encriptar' ? ci_aes32Soft(mensajeOriginal, passwordAESSoft32) : dci_aes32soft(mensajeOriginal, passwordAESSoft32);
     }
     return resultado;
 }
@@ -185,6 +190,11 @@ function guardarPasswordAES(){
 function guardarClaveGronsfeld(){
     let claveGronsfeld = document.getElementById("gronsfeldPassword").value;
     localStorage.setItem("gronsfeldPassword", claveGronsfeld);
+}
+
+function guardarPasswordAESSoft32(){
+    let passwordEASSoft32 = document.getElementById("aesSoft32Password").value;
+    localStorage.setItem("aesSoft32Password", passwordEASSoft32);
 }
 
 function msjEncriptado(msjEncriptadoStr){
@@ -303,6 +313,7 @@ function limpiarYRecargar() {
     localStorage.removeItem("desPassword");
     localStorage.removeItem("aesPassword");
     localStorage.removeItem("gronsfeldPassword");
+    localStorage.removeItem("aesSoft32Password");
         
     // Ocultar las tarjetas en la interfaz de usuario
     encriptarCard.style.display = "none";
@@ -386,6 +397,8 @@ function validateForm() {
     let inputScytale = form.querySelector('#scytalePassword');
     let inputDES = form.querySelector('#desPassword');
     let inputAES = form.querySelector('#aesPassword');
+    let inputAESSoft32 = form.querySelector('#aesSoft32Password');
+
     if (!form.checkValidity() 
         || (inputCesar.offsetParent !== null && (inputCesar.value < 1 || inputCesar.value > 120)) 
         || (inputTransposicion.offsetParent !== null && ((String(inputTransposicion.value).length < 5 || String(inputTransposicion.value).length >= 6) 
@@ -394,6 +407,7 @@ function validateForm() {
         || (inputScytale.offsetParent !== null && (inputScytale.value < 1 || inputScytale.value > 7))
         || (inputDES.offsetParent !== null && inputDES.value.trim().length === 0 && inputDES.value.trim().length !== 8)
         || (inputAES.offsetParent !== null && inputAES.value.trim().length === 0 && !(inputAES.value.trim().length === 16 || inputAES.value.trim().length === 24 || inputAES.value.trim().length === 32))
+        || (inputAESSoft32.offsetParent !== null && inputAESSoft32.value.trim().length === 0)
         ) {
         form.classList.add('was-validated');
         return false;
@@ -415,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputDES = form.querySelector('#desPassword');
         let inputAES = form.querySelector('#aesPassword');
         let inputGronsfeld = form.querySelector('#gronsfeldPassword');
+        let inputAESSoft32 = form.querySelector('#aesSoft32Password');
         let passwordCesarGrupoCampo = document.getElementById('passwordCesarGrupoCampo');
         let transposicionGrupoCampo = document.getElementById('transposicionGrupoCampo');
         let passwordVigenereGrupoCampo = document.getElementById('passwordVigenereGrupoCampo');
@@ -424,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let passwordDESGrupoCampo = document.getElementById('passwordDESGrupoCampo');
         let passwordAESGrupoCampo = document.getElementById('passwordAESGrupoCampo');
         let passwordGronsfeldGrupoCampo = document.getElementById('passwordGronsfeldGrupoCampo');
+        let passwordAESSoft32GrupoCampo = document.getElementById('passwordAESSoft32GrupoCampo');
        
         // Esta función observa qué tipo de cifrado se selecciona en el menú dropdown y proveerá de los campos necesarios para hacer el cifrado
         document.getElementById('cifrado').addEventListener('change', function() {
@@ -491,6 +507,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetForm();
                 passwordGronsfeldGrupoCampo.style.display = 'block';
                 inputGronsfeld.setAttribute('required', 'required');
+            }else if(encryptionType === '26'){
+                resetForm();
+                passwordAESSoft32GrupoCampo.style.display = 'block';
+                inputAESSoft32.setAttribute('required', 'required');
             }else {
                 resetForm();
             }
@@ -506,6 +526,7 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordDESGrupoCampo.style.display = 'none';
             passwordAESGrupoCampo.style.display = 'none';
             passwordGronsfeldGrupoCampo.style.display = 'none';
+            passwordAESSoft32GrupoCampo.style.display = 'none';
             inputCesar.removeAttribute('required');
             inputTransposicion.removeAttribute('required');
             inputVigenere.removeAttribute('required');
@@ -515,6 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inputDES.removeAttribute('required');
             inputAES.removeAttribute('required');
             inputGronsfeld.removeAttribute('required');
+            inputAESSoft32.removeAttribute('required');
         }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
@@ -590,6 +612,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 inputAES.classList.add('is-valid');
             }
         });
+
+        // Verificar cada vez que se cambia el valor del campo de texto inputAESSoft32
+        inputVigenere.addEventListener('input', function() {
+            let passwordEASSoft32 = inputAESSoft32.value;
+            if (passwordEASSoft32.trim().length === 0) {
+                inputAESSoft32.classList.add('is-invalid');
+                inputAESSoft32.classList.remove('is-valid');
+            } else {
+                inputAESSoft32.classList.remove('is-invalid');
+                inputAESSoft32.classList.add('is-valid');
+            }
+        });
         
         // Validación personalizada antes de la validación de Bootstrap
         form.addEventListener('submit', function(event) {
@@ -637,6 +671,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Verificar la visibilidad y la validez del inputAES
             if (inputAES.offsetParent !== null && inputAES.value.trim().length === 0 && !(inputAES.value.trim().length === 16 || inputAES.value.trim().length === 24 || inputAES.value.trim().length === 32)) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Verificar la visibilidad y la validez del inputAESSoft32
+            if (inputAESSoft32.offsetParent !== null && inputAESSoft32.value.trim().length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -731,6 +771,16 @@ window.onload = function() {
         // Este otro comando recupera el valor del localStorage y lo pone en el input
         document.getElementById("gronsfeldPassword").value = savedClaveGronsfeld;
     }
+
+    // Recuperar el valor de la claveAES
+    let savedPasswordAESSoft32 = localStorage.getItem("aesSoft32Password");
+    if (savedPasswordAESSoft32){
+        // Este comando muestra el campo passwordAESGrupoCampo
+        document.getElementById('passwordAESSoft32GrupoCampo').style.display = 'block';
+        // Este otro comando recupera el valor del localStorage y lo pone en el input
+        document.getElementById("aesSoft32Password").value = savedPasswordAESSoft32;
+    }
+    
 };
 
 document.getElementById("encriptarBtn").addEventListener("click", encriptarAccBtn);

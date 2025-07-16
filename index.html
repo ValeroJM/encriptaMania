@@ -48,6 +48,7 @@
                   <option value="23">Cifrado DES</option>
                   <option value="24">Cifrado AES</option>
                   <option value="25">Cifrado Gronsfeld</option>
+                  <option value="26">Cifrado AES Soft 32</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -115,6 +116,14 @@
                 <input type="number" class="form-control" id="gronsfeldPassword" placeholder="Escriba su clave numérica">
                 <div class="invalid-feedback">
                   Por favor, escriba un valor numérico Ej.:234568.
+                </div>
+              </div>
+              <!--Campo Password AES Soft 32-->
+              <div class="col-12" class="form-group" id="passwordAESSoft32GrupoCampo" style="display: none;">
+                <label for="aesSoft32Password">Password:</label>
+                <input type="text" class="form-control" id="aesSoft32Password" placeholder="Escriba su password">
+                <div class="invalid-feedback">
+                  Por favor, escriba un password con almenos 1 caracter alfanumérico.
                 </div>
               </div>
               <div class="col-12">

@@ -15,4 +15,13 @@ function generaHashRapido(texto) {
     }  return hash.toString(16); // Retorna en formato hexadecimal
 }
 
-export {generarHash, generaHashRapido};
+function generaHashRapido32(valor) {
+  let hash = 0;
+  for (let i = 0; i < valor.length; i++) {
+    hash = ((hash << 5) - hash) + valor.charCodeAt(i);
+    hash |= 0; // Convierte a entero de 32 bits
+  }
+  return Math.abs(hash).toString(16).padStart(32, 'j').slice(0, 32);
+}
+
+export {generarHash, generaHashRapido, generaHashRapido32};
