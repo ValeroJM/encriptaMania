@@ -772,10 +772,10 @@ window.onload = function() {
         document.getElementById("gronsfeldPassword").value = savedClaveGronsfeld;
     }
 
-    // Recuperar el valor de la claveAES
+    // Recuperar el valor de la claveAESSoft32
     let savedPasswordAESSoft32 = localStorage.getItem("aesSoft32Password");
     if (savedPasswordAESSoft32){
-        // Este comando muestra el campo passwordAESGrupoCampo
+        // Este comando muestra el campo passwordAESSoft32GrupoCampo
         document.getElementById('passwordAESSoft32GrupoCampo').style.display = 'block';
         // Este otro comando recupera el valor del localStorage y lo pone en el input
         document.getElementById("aesSoft32Password").value = savedPasswordAESSoft32;
