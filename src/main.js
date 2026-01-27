@@ -21,6 +21,7 @@ import {ci_des, dci_des} from './c_des.js';
 import {ci_aes, dci_aes, ci_aes32Soft, dci_aes32soft} from './c_aes.js';
 import {ci_gronsfeld, dci_gronsfeld} from './c_gronsfeld.js';
 import {ci_baconian, dci_baconian,ci_baconianInverso, dci_baconianInverso} from './c_baconian.js';
+import {ci_polibio, dci_polibio} from './c_polibio.js';
 
 function encriptarAccBtn(){
     if(validateForm()){
@@ -148,6 +149,8 @@ function encriptarODesencriptar(accion){
         resultado = accion === 'encriptar' ? ci_baconian(mensajeOriginal) : dci_baconian(mensajeOriginal);
     }else if(tipoCifrado === '28'){
         resultado = accion === 'encriptar' ? ci_baconianInverso(mensajeOriginal) : dci_baconianInverso(mensajeOriginal);
+    }else if(tipoCifrado === '29'){
+        resultado = accion === 'encriptar' ? ci_polibio(mensajeOriginal) : dci_polibio(mensajeOriginal);
     }
     return resultado;
 }
