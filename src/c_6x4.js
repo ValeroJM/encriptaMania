@@ -1,6 +1,6 @@
 //Cifrado 6x4
 function ci_6x4(text){
-    const segmentos = splitStringEnSegmentos(text, 24)
+    const segmentos = splitStringEnSegmentos(text, 24);
     let resultado = "";
 
     for (let i = 0; i < segmentos.length; i++){
@@ -12,11 +12,12 @@ function ci_6x4(text){
 
 //Descifrado 6x4
 function dci_6x4(text){
-    const textList = text.split(separador);
+    const segmentos = splitStringEnSegmentos(text, 24);
+    console.log(segmentos);
     let resultado = "";
-    for (let i = 0; i < textList.length-1; i++){
-        let codigoIndex = codigoPolibio.indexOf(textList[i]);
-        resultado += abecedarioArray[codigoIndex];
+
+    for (let i = 0; i < segmentos.length; i++){
+        resultado += reorg6x4(segmentos[i]);
     }
 
     return resultado;
@@ -54,16 +55,57 @@ function org6x4(segmento){
     return result; 
 }
 
-//export {ci_polibio, dci_polibio};
+function reorg6x4(segmento){
+    let result = "";
+    
+    for (let i = 0; i < segmento.length; i++){
+        if (i === 0 || i === 6 || i === 12 || i === 18){
+            result += segmento[i];
+        }
+    }
 
-let text = "Example: In this example, we will split a string into segments of a specified length using a for loop, store the segments in an array, and return the array of segments."
-//let text = "Example: oooooooooooooooo a"
-//let result = splitStringEnSegmentos(text, 24);
-let result = ci_6x4(text);
-console.log("Texto Cifrado:", result);
+    for (let i = 0; i < segmento.length; i++){
+        if (i === 1 || i === 7 || i === 13 || i === 19){
+            result += segmento[i];
+        }
+    }
 
-/*
-let org = org6x4(result[0]);
-console.log("Texto Cifrado: " + org);
-console.log("Tamaño texto: ", org.length);
-*/
+    for (let i = 0; i < segmento.length; i++){
+        if (i === 2 || i === 8 || i === 14 || i === 20){
+            result += segmento[i];
+        }
+    }
+
+    for (let i = 0; i < segmento.length; i++){
+        if (i === 3 || i === 9 || i === 15 || i === 21){
+            result += segmento[i];
+        }
+    }
+
+    for (let i = 0; i < segmento.length; i++){
+        if (i === 4 || i === 10 || i === 16 || i === 22){
+            result += segmento[i];
+        }
+    }
+
+    for (let i = 0; i < segmento.length; i++){
+        if (i === 5 || i === 11 || i === 17 || i === 23){
+            result += segmento[i];
+        }
+    }
+    
+    return result; 
+}
+
+//export {ci_6x4, dci_6x4};
+
+let org = "El rabo de San Roque se lo han contado porque Ramón Ramírez se lo ha llevadoa";
+console.log("Org length:", org.length);
+
+let cif = ci_6x4(org);
+let des = dci_6x4(cif);
+
+console.log("Texto cif:", cif);
+console.log("Texto cif length:", cif.length);
+console.log("Texto des:", des);
+console.log("Texto des length:", des.length);
