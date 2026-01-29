@@ -57,55 +57,312 @@ function org6x4(segmento){
 
 function reorg6x4(segmento){
     let result = "";
-    
-    for (let i = 0; i < segmento.length; i++){
-        if (i === 0 || i === 6 || i === 12 || i === 18){
-            result += segmento[i];
-        }
-    }
 
-    for (let i = 0; i < segmento.length; i++){
-        if (i === 1 || i === 7 || i === 13 || i === 19){
-            result += segmento[i];
-        }
-    }
-
-    for (let i = 0; i < segmento.length; i++){
-        if (i === 2 || i === 8 || i === 14 || i === 20){
-            result += segmento[i];
-        }
-    }
-
-    for (let i = 0; i < segmento.length; i++){
-        if (i === 3 || i === 9 || i === 15 || i === 21){
-            result += segmento[i];
-        }
-    }
-
-    for (let i = 0; i < segmento.length; i++){
-        if (i === 4 || i === 10 || i === 16 || i === 22){
-            result += segmento[i];
-        }
-    }
-
-    for (let i = 0; i < segmento.length; i++){
-        if (i === 5 || i === 11 || i === 17 || i === 23){
-            result += segmento[i];
-        }
+    if (segmento.length === 1 || segmento.length === 2 || segmento.length === 3 || segmento.length === 24){
+        result += segmento[0];
+        (segmento[6] !== undefined) ? result += segmento[6] : "";
+        (segmento[12] !== undefined) ?result += segmento[12] : "";
+        (segmento[18] !== undefined) ?result += segmento[18] : "";
+        (segmento[1] !== undefined) ?result += segmento[1] : "";
+        (segmento[7] !== undefined) ?result += segmento[7] : "";
+        (segmento[13] !== undefined) ?result += segmento[13] : "";
+        (segmento[19] !== undefined) ?result += segmento[19] : "";
+        (segmento[2] !== undefined) ?result += segmento[2] : "";
+        (segmento[8] !== undefined) ?result += segmento[8] : "";
+        (segmento[14] !== undefined) ?result += segmento[14] : "";
+        (segmento[20] !== undefined) ?result += segmento[20] : "";
+        (segmento[3] !== undefined) ?result += segmento[3] : "";
+        (segmento[9] !== undefined) ?result += segmento[9] : "";
+        (segmento[15] !== undefined) ?result += segmento[15] : "";
+        (segmento[21] !== undefined) ?result += segmento[21] : "";
+        (segmento[4] !== undefined) ?result += segmento[4] : "";
+        (segmento[10] !== undefined) ?result += segmento[10] : "";
+        (segmento[16] !== undefined) ?result += segmento[16] : "";
+        (segmento[22] !== undefined) ?result += segmento[22] : "";
+        (segmento[5] !== undefined) ?result += segmento[5] : "";
+        (segmento[11] !== undefined) ?result += segmento[11] : "";
+        (segmento[17] !== undefined) ?result += segmento[17] : "";
+        (segmento[23] !== undefined) ?result += segmento[23] : "";
+    }else if (segmento.length === 5){
+        result += segmento[0];
+        result += segmento[2];
+        result += segmento[3];
+        result += segmento[4];
+        result += segmento[1];
+    }else if (segmento.length === 6){
+        result += segmento[0];
+        result += segmento[2];
+        result += segmento[4];
+        result += segmento[5];
+        result += segmento[1];
+        result += segmento[3];
+    }else if (segmento.length === 7){
+        result += segmento[0];
+        result += segmento[2];
+        result += segmento[4];
+        result += segmento[6];
+        result += segmento[1];
+        result += segmento[3];
+        result += segmento[5];
+    }else if (segmento.length === 8){
+        result += segmento[0];
+        result += segmento[2];
+        result += segmento[4];
+        result += segmento[6];
+        result += segmento[1];
+        result += segmento[3];
+        result += segmento[5];
+        result += segmento[7];
+    }else if (segmento.length === 9){
+        result += segmento[0];
+        result += segmento[3];
+        result += segmento[5];
+        result += segmento[7];
+        result += segmento[1];
+        result += segmento[4];
+        result += segmento[6];
+        result += segmento[8];
+    }else if (segmento.length === 10){
+        result += segmento[0];
+        result += segmento[3];
+        result += segmento[6];
+        result += segmento[8];
+        result += segmento[1];
+        result += segmento[4];
+        result += segmento[7];
+        result += segmento[9];
+        result += segmento[2];
+        result += segmento[5];
+    }else if (segmento.length === 11){
+        result += segmento[0];
+        result += segmento[3];
+        result += segmento[6];
+        result += segmento[9];
+        result += segmento[1];
+        result += segmento[4];
+        result += segmento[7];
+        result += segmento[10];
+        result += segmento[2];
+        result += segmento[5];
+        result += segmento[8];
+    }else if (segmento.length === 12){
+        result += segmento[0];
+        result += segmento[3];
+        result += segmento[6];
+        result += segmento[9];
+        result += segmento[1];
+        result += segmento[4];
+        result += segmento[7];
+        result += segmento[10];
+        result += segmento[2];
+        result += segmento[5];
+        result += segmento[8];
+        result += segmento[11];
+    }else if (segmento.length === 13){
+        result += segmento[0];
+        result += segmento[4];
+        result += segmento[7];
+        result += segmento[10];
+        result += segmento[1];
+        result += segmento[5];
+        result += segmento[8];
+        result += segmento[11];
+        result += segmento[2];
+        result += segmento[6];
+        result += segmento[9];
+        result += segmento[12];
+        result += segmento[3];
+    }else if (segmento.length === 14){
+        result += segmento[0];
+        result += segmento[4];
+        result += segmento[8];
+        result += segmento[11];
+        result += segmento[1];
+        result += segmento[5];
+        result += segmento[9];
+        result += segmento[12];
+        result += segmento[2];
+        result += segmento[6];
+        result += segmento[10];
+        result += segmento[13];
+        result += segmento[3];
+        result += segmento[7];
+    }else if (segmento.length === 15){
+        result += segmento[0];
+        result += segmento[4];
+        result += segmento[8];
+        result += segmento[12];
+        result += segmento[1];
+        result += segmento[5];
+        result += segmento[9];
+        result += segmento[13];
+        result += segmento[2];
+        result += segmento[6];
+        result += segmento[10];
+        result += segmento[14];
+        result += segmento[3];
+        result += segmento[7];
+        result += segmento[11];
+    }else if (segmento.length === 16){
+        result += segmento[0];
+        result += segmento[4];
+        result += segmento[8];
+        result += segmento[12];
+        result += segmento[1];
+        result += segmento[5];
+        result += segmento[9];
+        result += segmento[13];
+        result += segmento[2];
+        result += segmento[6];
+        result += segmento[10];
+        result += segmento[14];
+        result += segmento[3];
+        result += segmento[7];
+        result += segmento[11];
+        result += segmento[15];
+    }else if (segmento.length === 17){
+        result += segmento[0];
+        result += segmento[4];
+        result += segmento[8];
+        result += segmento[12];
+        result += segmento[1];
+        result += segmento[5];
+        result += segmento[9];
+        result += segmento[13];
+        result += segmento[2];
+        result += segmento[6];
+        result += segmento[10];
+        result += segmento[14];
+        result += segmento[3];
+        result += segmento[7];
+        result += segmento[11];
+        result += segmento[15];
+    }else if (segmento.length === 18){
+        result += segmento[0];
+        result += segmento[5];
+        result += segmento[9];
+        result += segmento[13];
+        result += segmento[1];
+        result += segmento[6];
+        result += segmento[10];
+        result += segmento[14];
+        result += segmento[2];
+        result += segmento[7];
+        result += segmento[11];
+        result += segmento[15];
+        result += segmento[3];
+        result += segmento[8];
+        result += segmento[12];
+        result += segmento[16];
+        result += segmento[4];
+    }else if (segmento.length === 19){
+        result += segmento[0];
+        result += segmento[5];
+        result += segmento[10];
+        result += segmento[14];
+        result += segmento[1];
+        result += segmento[6];
+        result += segmento[11];
+        result += segmento[15];
+        result += segmento[2];
+        result += segmento[7];
+        result += segmento[12];
+        result += segmento[16];
+        result += segmento[3];
+        result += segmento[8];
+        result += segmento[13];
+        result += segmento[17];
+        result += segmento[4];
+        result += segmento[9];
+    }else if (segmento.length === 20){
+        result += segmento[0];
+        result += segmento[5];
+        result += segmento[10];
+        result += segmento[15];
+        result += segmento[1];
+        result += segmento[6];
+        result += segmento[11];
+        result += segmento[16];
+        result += segmento[2];
+        result += segmento[7];
+        result += segmento[12];
+        result += segmento[17];
+        result += segmento[3];
+        result += segmento[8];
+        result += segmento[13];
+        result += segmento[18];
+        result += segmento[4];
+        result += segmento[9];
+        result += segmento[14];
+    }else if (segmento.length === 21){
+        result += segmento[0];
+        result += segmento[5];
+        result += segmento[10];
+        result += segmento[15];
+        result += segmento[1];
+        result += segmento[6];
+        result += segmento[11];
+        result += segmento[16];
+        result += segmento[2];
+        result += segmento[7];
+        result += segmento[12];
+        result += segmento[17];
+        result += segmento[3];
+        result += segmento[8];
+        result += segmento[13];
+        result += segmento[18];
+        result += segmento[4];
+        result += segmento[9];
+        result += segmento[14];
+        result += segmento[19];
+    }else if (segmento.length === 22){
+        result += segmento[0];
+        result += segmento[6];
+        result += segmento[11];
+        result += segmento[16];
+        result += segmento[1];
+        result += segmento[7];
+        result += segmento[12];
+        result += segmento[17];
+        result += segmento[2];
+        result += segmento[8];
+        result += segmento[13];
+        result += segmento[18];
+        result += segmento[3];
+        result += segmento[9];
+        result += segmento[14];
+        result += segmento[19];
+        result += segmento[4];
+        result += segmento[10];
+        result += segmento[15];
+        result += segmento[20];
+        result += segmento[5];
+    }else if (segmento.length === 23){
+        result += segmento[0];
+        result += segmento[6];
+        result += segmento[12];
+        result += segmento[17];
+        result += segmento[1];
+        result += segmento[7];
+        result += segmento[13];
+        result += segmento[18];
+        result += segmento[2];
+        result += segmento[8];
+        result += segmento[14];
+        result += segmento[14];
+        result += segmento[3];
+        result += segmento[9];
+        result += segmento[15];
+        result += segmento[20];
+        result += segmento[4];
+        result += segmento[10];
+        result += segmento[16];
+        result += segmento[21];
+        result += segmento[5];
+        result += segmento[11];
     }
     
     return result; 
 }
 
-//export {ci_6x4, dci_6x4};
-
-let org = "El rabo de San Roque se lo han contado porque Ramón Ramírez se lo ha llevadoa";
-console.log("Org length:", org.length);
-
-let cif = ci_6x4(org);
-let des = dci_6x4(cif);
-
-console.log("Texto cif:", cif);
-console.log("Texto cif length:", cif.length);
-console.log("Texto des:", des);
-console.log("Texto des length:", des.length);
+export {ci_6x4, dci_6x4};
