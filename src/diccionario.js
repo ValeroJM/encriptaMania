@@ -84,6 +84,21 @@ const abecedarioGronsfeld = [["BÄ@<42.Q(?ü^+zS]cj!yauÇPpi9Ü)w}8~ñK6ä0 Lï'
                              ["y-íKe¿`oung4}*f,9H)=@'30\\_mC+Up>h7FdÇÍJzEÖ:éYOöäñb8Mq^\"áDAj%$r[.k~;ÉütsÜú Qa¡XwçïIÓRÁ\nZó!P<iL/Ú?VÑB\t5]xNcG1S{&|Ä2WëT6#(lv"],
                              ["P6=ëZ+:_.Ñ8h,QI4{&vU TÍíÇ%#ylz-e;\t*FÁdGw'VäWÓOJSnö1Úñ2çqo^\n¡A\"|$uKÄgÉ}m3p!>Bé)Ökr@/(Y¿t05aNLH9Ef]?icX\\ïMÜüóDRúx<[sb`j7~áC"]];
 
+const abecesarioDellaPorta = [["abcdefghijklmnñopqrstuvwxyzçABCDEFGHIJKLMNÑOPQRSTUVWXYZÇáéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'()\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789"],
+                              ["nñopqrstuvwxyzçabcdefghijklmNÑOPQRSTUVWXYZÇABCDEFGHIJKLMóúáéíÓÚÁÉÍöüäëï+,-./ :;<=>¿?@[\\]^_`{|}~0123456789ÄÖÜ!¡\"#$\t%&'()\n*"],
+                              ["opqrstuvwxyzçabcdefghijklmnñOPQRSTUVWXYZÇABCDEFGHIJKLMNÑ!¡\"#$\t%&'()\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ"],
+                              ["pqrstuvwxyzçabcdefghijklmnñoPQRSTUVWXYZÇABCDEFGHIJKLMNÑOáéíóúÁÉÍÓÚäëïöüÄÖÜ0123456789 :;<=>¿?@[\\]^_`{|}~!¡\"#$\t%&'()\n*+,-./"],
+                              ["qrstuvwxyzçabcdefghijklmnñopQRSTUVWXYZÇABCDEFGHIJKLMNÑOPäëïöüÄÖÜáéíóúÁÉÍÓÚ :;<=>¿?@[\\]^_`{|}~0123456789!¡\"#$\t%&'()\n*+,-./"],
+                              ["rstuvwxyzçabcdefghijklmnñopqRSTUVWXYZÇABCDEFGHIJKLMNÑOPQÁÉÍÓÚáéíóúäëïöüÄÖÜ[\\]^_`{|}~0123456789!¡\"#$\t%&'()\n*+,-./ :;<=>¿?@"],
+                              ["stuvwxyzçabcdefghijklmnñopqrSTUVWXYZÇABCDEFGHIJKLMNÑOPQR!¡\"#$\t%&'()\n*+,-./0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ :;<=>¿?@[\\]^_`{|}~"],
+                              ["tuvwxyzçabcdefghijklmnñopqrsTUVWXYZÇABCDEFGHIJKLMNÑOPQRS()\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'"],
+                              ["uvwxyzçabcdefghijklmnñopqrstUVWXYZÇABCDEFGHIJKLMNÑOPQRST&'()\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%"],
+                              ["vwxyzçabcdefghijklmnñopqrstuVWXYZÇABCDEFGHIJKLMNÑOPQRSTU)\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'("],
+                              ["wxyzçabcdefghijklmnñopqrstuvWXYZÇABCDEFGHIJKLMNÑOPQRSTUV$\t%&'()\n*+,-./ :;<=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#"],
+                              ["xyzçabcdefghijklmnñopqrstuvwXYZÇABCDEFGHIJKLMNÑOPQRSTUVW-./ :;<=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'()\n*+,"],
+                              ["yzçabcdefghijklmnñopqrstuvwxYZÇABCDEFGHIJKLMNÑOPQRSTUVWX=>¿?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'()\n*+,-./ :;<"],
+                              ["zçabcdefghijklmnñopqrstuvwxyZÇABCDEFGHIJKLMNÑOPQRSTUVWXY?@[\\]^_`{|}~0123456789áéíóúÁÉÍÓÚäëïöüÄÖÜ!¡\"#$\t%&'()\n*+,-./ :;<=>¿"]];                             
+
 export {abcedario, 
         transposicion5DigStr,
         abcedarioAtbash,
