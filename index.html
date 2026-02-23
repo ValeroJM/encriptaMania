@@ -53,6 +53,7 @@
                   <option value="28">Cifrado Baconian Inverso</option>
                   <option value="29">Cifrado Polibio</option>
                   <option value="30">Cifrado 6x4</option>
+                  <option value="31">Cifrado Della Porta</option>
                 </select>
                 <div class="invalid-feedback">
                   Por favor, selecciona un tipo de cifrado.
@@ -130,6 +131,15 @@
                   Por favor, escriba un password con almenos 1 caracter alfanumérico.
                 </div>
               </div>
+              <!--Campo Clave Gronsfeld-->
+              <div class="col-12" class="form-group" id="passwordDellaPortaGrupoCampo" style="display: none;">
+                <label for="dellaPortaPassword">Clave Alfabética:</label>
+                <input type="number" class="form-control" id="dellaPortaPassword" placeholder="Escriba su clave con letras (No números, ni caracteres especiales)">
+                <div class="invalid-feedback">
+                  Por favor, escriba un valor usando sólamente letras Ej.:ClaveSecreta.
+                </div>
+              </div>
+
               <div class="col-12">
                 <label for="mensajeTextarea">Mensaje a cifrar o descifrar:</label>
                 <textarea class="form-control" id="mensajeTextarea" rows="3" required></textarea>
