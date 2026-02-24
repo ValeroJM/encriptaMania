@@ -522,12 +522,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetForm();
                 passwordAESSoft32GrupoCampo.style.display = 'block';
                 inputAESSoft32.setAttribute('required', 'required');
+            }else if(encryptionType === '31'){
+                resetForm();
+                passwordDellaPortaGrupoCampo.style.display = 'block';
+                dellaPortaPassword.setAttribute('required', 'required');
             }else {
                 resetForm();
             }
         });
 
-        //Este función Resetea todo el fomulario para encriptados con Password o campos extra
+        //Esta función Resetea todo el fomulario para encriptados con Password o campos extra
         function resetForm(){
             passwordCesarGrupoCampo.style.display = 'none';
             transposicionGrupoCampo.style.display = 'none';
@@ -538,6 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordAESGrupoCampo.style.display = 'none';
             passwordGronsfeldGrupoCampo.style.display = 'none';
             passwordAESSoft32GrupoCampo.style.display = 'none';
+            passwordDellaPortaGrupoCampo.style.display = 'none';
             inputCesar.removeAttribute('required');
             inputTransposicion.removeAttribute('required');
             inputVigenere.removeAttribute('required');
@@ -548,6 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inputAES.removeAttribute('required');
             inputGronsfeld.removeAttribute('required');
             inputAESSoft32.removeAttribute('required');
+            dellaPortaPassword.removeAttribute('required');
         }
 
         // Verificar cada vez que se cambia el valor del campo de texto inputCesar
